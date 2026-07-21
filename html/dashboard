@@ -1,0 +1,2649 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="LeadPilot — AI Sales Intelligence Platform Dashboard" />
+  <title>LeadPilot — Dashboard</title>
+
+  <!-- Preconnect for Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Dashboard Stylesheet -->
+  <link rel="stylesheet" href="css/dashboard.css" />
+
+  <!-- Favicon placeholder -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232563EB'/><text y='22' x='6' font-size='18' fill='white'>⚡</text></svg>" />
+</head>
+<body>
+
+<!-- ============================================================
+     GLOBAL OVERLAY CONTAINERS
+     Used by JS for modals, toasts, dropdowns, tooltips
+     ============================================================ -->
+<div id="lp-modal-root" role="dialog" aria-modal="true" aria-label="Modal" hidden></div>
+<div id="lp-toast-root" class="lp-toasts" aria-live="polite" aria-atomic="false"></div>
+<div id="lp-tooltip-root" role="tooltip" hidden></div>
+<div id="lp-sidebar-overlay" class="lp-sidebar-overlay" aria-hidden="true" hidden></div>
+<div id="lp-loading-bar" class="lp-loading-bar" aria-hidden="true" hidden></div>
+
+
+<!-- ============================================================
+     APP SHELL
+     ============================================================ -->
+<div class="lp-shell" id="lp-app">
+
+  <!-- ==========================================================
+       SIDEBAR
+       ========================================================== -->
+  <aside class="lp-sidebar" id="lp-sidebar" role="navigation" aria-label="Main navigation">
+
+    <!-- Logo -->
+    <a href="#" class="lp-sidebar-logo" id="lp-logo" data-nav="dashboard" aria-label="LeadPilot Home">
+      <span class="lp-logo-mark" aria-hidden="true">⚡</span>
+      <span>LeadPilot</span>
+    </a>
+
+    <!-- Navigation -->
+    <nav class="lp-nav" id="lp-nav">
+
+      <!-- Main -->
+      <div class="lp-nav-section" id="nav-section-main">
+        <span class="lp-nav-label">Main</span>
+
+        <button
+          type="button"
+          class="lp-nav-item active"
+          id="nav-dashboard"
+          data-nav="dashboard"
+          aria-current="page"
+          aria-label="Dashboard overview"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </button>
+
+        <button
+          type="button"
+          class="lp-nav-item"
+          id="nav-leads"
+          data-nav="leads"
+          aria-label="Lead management"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Leads
+          <span class="lp-nav-badge" id="nav-leads-count" aria-label="89 leads">89</span>
+        </button>
+
+        <button
+          type="button"
+          class="lp-nav-item"
+          id="nav-ai-search"
+          data-nav="ai-search"
+          aria-label="AI Lead Search"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          AI Search
+          <span class="lp-nav-badge" style="background:var(--purple)" aria-label="AI feature">AI</span>
+        </button>
+
+        <button
+          type="button"
+          class="lp-nav-item"
+          id="nav-email-gen"
+          data-nav="email-gen"
+          aria-label="AI Email Generator"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Email Generator
+        </button>
+
+        <button
+          type="button"
+          class="lp-nav-item"
+          id="nav-campaigns"
+          data-nav="campaigns"
+          aria-label="Campaign management"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Campaigns
+          <span class="lp-nav-badge red" id="nav-campaigns-count" aria-label="4 active campaigns">4</span>
+        </button>
+
+        <button
+          type="button"
+          class="lp-nav-item"
+          id="nav-analytics"
+          data-nav="analytics"
+          aria-label="Analytics and reports"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Analytics
+        </button>
+      </div>
+
+      <!-- Tools -->
+      <div class="lp-nav-section" id="nav-section-tools">
+        <span class="lp-nav-label">Tools</span>
+
+        <button
+          type="button"
+          class="lp-nav-item"
+          id="nav-integrations"
+          data-nav="integrations"
+          aria-label="Integrations"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Integrations
+        </button>
+
+        <button
+          type="button"
+          class="lp-nav-item"
+          id="nav-billing"
+          data-nav="billing"
+          aria-label="Billing and subscription"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Billing
+        </button>
+      </div>
+
+      <!-- Account -->
+      <div class="lp-nav-section" id="nav-section-account">
+        <span class="lp-nav-label">Account</span>
+
+        <button
+          type="button"
+          class="lp-nav-item"
+          id="nav-settings"
+          data-nav="settings"
+          aria-label="Settings"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Settings
+        </button>
+
+        <button
+          type="button"
+          class="lp-nav-item"
+          id="nav-profile"
+          data-nav="profile"
+          aria-label="Your profile"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Profile
+        </button>
+      </div>
+
+    </nav><!-- /lp-nav -->
+
+    <!-- Sidebar Footer — User row + Logout -->
+    <footer class="lp-sidebar-footer" id="lp-sidebar-footer">
+      <div class="lp-dropdown" id="sidebar-user-dropdown">
+        <button
+          type="button"
+          class="lp-user-row"
+          id="sidebar-user-btn"
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-controls="sidebar-user-menu"
+        >
+          <div class="lp-avatar" id="sidebar-avatar" aria-hidden="true">AJ</div>
+          <div class="lp-user-info">
+            <div class="lp-user-name" id="sidebar-user-name">Alex Johnson</div>
+            <div class="lp-user-email" id="sidebar-user-email">alex@company.com</div>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gray-400)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="lp-dropdown-menu" id="sidebar-user-menu" role="menu">
+          <button type="button" class="lp-dropdown-item" role="menuitem" data-action="goto-profile">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            View Profile
+          </button>
+          <button type="button" class="lp-dropdown-item" role="menuitem" data-action="goto-settings">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06A1.65 1.65 0 0 0 15 19.4a1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            Settings
+          </button>
+          <button type="button" class="lp-dropdown-item" role="menuitem" data-action="goto-billing">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            Billing
+          </button>
+          <div class="lp-dropdown-divider"></div>
+          <button type="button" class="lp-dropdown-item danger" role="menuitem" data-action="logout" id="btn-logout">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Sign Out
+          </button>
+        </div>
+      </div>
+    </footer>
+
+  </aside><!-- /lp-sidebar -->
+
+
+  <!-- ==========================================================
+       MAIN CONTENT AREA
+       ========================================================== -->
+  <div class="lp-main" id="lp-main">
+
+    <!-- ========================================================
+         TOP NAVIGATION BAR
+         ======================================================== -->
+    <header class="lp-topbar" id="lp-topbar" role="banner">
+
+      <!-- Mobile menu toggle -->
+      <button
+        type="button"
+        class="lp-topbar-btn"
+        id="btn-mobile-menu"
+        aria-label="Toggle sidebar navigation"
+        aria-controls="lp-sidebar"
+        aria-expanded="false"
+        style="display:none"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+
+      <!-- Global Search -->
+      <div class="lp-search-wrap" role="search">
+        <label for="global-search" class="lp-text-xs" style="position:absolute;left:-9999px">Search</label>
+        <span class="lp-search-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </span>
+        <input
+          type="search"
+          id="global-search"
+          name="global-search"
+          class="lp-search"
+          placeholder="Search leads, companies, campaigns…"
+          autocomplete="off"
+          autocorrect="off"
+          spellcheck="false"
+          maxlength="120"
+          data-action="global-search"
+        />
+        <!-- Search results dropdown (filled by JS) -->
+        <div id="search-results-dropdown" class="lp-dropdown-menu" role="listbox" aria-label="Search results" hidden></div>
+      </div>
+
+      <!-- Right side actions -->
+      <div class="lp-topbar-right" role="toolbar" aria-label="Toolbar">
+
+        <!-- Language Switcher -->
+        <div class="lp-dropdown" id="lang-dropdown">
+          <button
+            type="button"
+            class="lp-topbar-btn"
+            id="btn-lang"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="lang-menu"
+            aria-label="Change language: English"
+            data-current-lang="en"
+            title="Language"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </button>
+          <div class="lp-dropdown-menu" id="lang-menu" role="menu" aria-label="Language selection">
+            <button type="button" class="lp-dropdown-item" role="menuitem" data-lang="en" data-action="set-lang">🇬🇧 English</button>
+            <button type="button" class="lp-dropdown-item" role="menuitem" data-lang="cs" data-action="set-lang">🇨🇿 Čeština</button>
+            <button type="button" class="lp-dropdown-item" role="menuitem" data-lang="ru" data-action="set-lang">🇷🇺 Русский</button>
+          </div>
+        </div>
+
+        <!-- Theme Toggle placeholder -->
+        <button
+          type="button"
+          class="lp-topbar-btn"
+          id="btn-theme-toggle"
+          aria-label="Toggle dark mode"
+          aria-pressed="false"
+          data-action="toggle-theme"
+          title="Toggle theme"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+
+        <!-- Notifications -->
+        <div class="lp-dropdown" id="notif-dropdown">
+          <button
+            type="button"
+            class="lp-topbar-btn"
+            id="btn-notifications"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="notif-menu"
+            aria-label="Notifications — 3 unread"
+            title="Notifications"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="lp-notif-dot" id="notif-dot" aria-hidden="true"></span>
+          </button>
+          <div class="lp-dropdown-menu" id="notif-menu" role="menu" aria-label="Notifications" style="min-width:320px;right:0">
+            <div style="padding:12px 14px 8px;border-bottom:1px solid var(--gray-100);display:flex;align-items:center;justify-content:space-between">
+              <strong style="font-size:13px">Notifications</strong>
+              <button type="button" class="lp-text-xs" style="color:var(--blue);background:none;border:none;cursor:pointer" data-action="mark-all-read">Mark all read</button>
+            </div>
+            <!-- Notification items — populated by JS -->
+            <div id="notif-list" role="list">
+              <div class="lp-dropdown-item lp-flex lp-gap-2" role="listitem" data-notif-id="n1" style="padding:10px 14px;align-items:flex-start">
+                <span style="font-size:18px;flex-shrink:0" aria-hidden="true">⚡</span>
+                <div>
+                  <div style="font-size:12px;font-weight:500;color:var(--gray-800)">Campaign "Germany SaaS Q1" launched</div>
+                  <div class="lp-text-xs lp-text-muted" style="margin-top:2px">2 minutes ago</div>
+                </div>
+                <span style="width:7px;height:7px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:4px" aria-label="Unread"></span>
+              </div>
+              <div class="lp-dropdown-item lp-flex lp-gap-2" role="listitem" data-notif-id="n2" style="padding:10px 14px;align-items:flex-start">
+                <span style="font-size:18px;flex-shrink:0" aria-hidden="true">💬</span>
+                <div>
+                  <div style="font-size:12px;font-weight:500;color:var(--gray-800)">3 companies replied to your emails</div>
+                  <div class="lp-text-xs lp-text-muted" style="margin-top:2px">18 minutes ago</div>
+                </div>
+                <span style="width:7px;height:7px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:4px" aria-label="Unread"></span>
+              </div>
+              <div class="lp-dropdown-item lp-flex lp-gap-2" role="listitem" data-notif-id="n3" style="padding:10px 14px;align-items:flex-start">
+                <span style="font-size:18px;flex-shrink:0" aria-hidden="true">⚠️</span>
+                <div>
+                  <div style="font-size:12px;font-weight:500;color:var(--gray-800)">Subscription expires in 12 days</div>
+                  <div class="lp-text-xs lp-text-muted" style="margin-top:2px">2 hours ago</div>
+                </div>
+                <span style="width:7px;height:7px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:4px" aria-label="Unread"></span>
+              </div>
+              <div class="lp-dropdown-item" role="listitem" data-notif-id="n4" style="padding:10px 14px">
+                <div style="font-size:12px;font-weight:500;color:var(--gray-800)">💡 Credits running low — 18% remaining</div>
+                <div class="lp-text-xs lp-text-muted" style="margin-top:2px">3 hours ago</div>
+              </div>
+            </div>
+            <div style="padding:8px 14px;border-top:1px solid var(--gray-100)">
+              <button type="button" class="btn btn-ghost" style="width:100%;justify-content:center;font-size:12px" data-action="view-all-notifications">View all notifications</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div style="width:1px;height:22px;background:var(--gray-200);margin:0 2px" aria-hidden="true"></div>
+
+        <!-- User Plan Badge -->
+        <span class="lp-badge lp-badge-blue" id="topbar-plan-badge" aria-label="Current plan: Pro">⚡ Pro</span>
+
+        <!-- User Avatar / Account Menu -->
+        <div class="lp-dropdown" id="topbar-user-dropdown">
+          <button
+            type="button"
+            class="lp-avatar"
+            id="topbar-avatar-btn"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="topbar-user-menu"
+            aria-label="Account menu — Alex Johnson"
+            data-user-name="Alex Johnson"
+            style="cursor:pointer"
+          >AJ</button>
+          <div class="lp-dropdown-menu" id="topbar-user-menu" role="menu">
+            <div style="padding:10px 14px 8px;border-bottom:1px solid var(--gray-100)">
+              <div style="font-size:13px;font-weight:600;color:var(--gray-900)">Alex Johnson</div>
+              <div class="lp-text-xs lp-text-muted">alex@company.com</div>
+            </div>
+            <button type="button" class="lp-dropdown-item" role="menuitem" data-action="goto-profile">Profile</button>
+            <button type="button" class="lp-dropdown-item" role="menuitem" data-action="goto-settings">Settings</button>
+            <button type="button" class="lp-dropdown-item" role="menuitem" data-action="goto-billing">Billing</button>
+            <div class="lp-dropdown-divider"></div>
+            <button type="button" class="lp-dropdown-item danger" role="menuitem" data-action="logout">Sign Out</button>
+          </div>
+        </div>
+
+      </div><!-- /lp-topbar-right -->
+    </header><!-- /lp-topbar -->
+
+
+    <!-- ========================================================
+         PAGE CONTENT WRAPPER
+         ======================================================== -->
+    <main class="lp-content" id="lp-content" role="main">
+
+
+      <!-- ======================================================
+           PAGE: DASHBOARD OVERVIEW
+           data-page="dashboard"
+           ====================================================== -->
+      <section id="page-dashboard" class="lp-page active" data-page="dashboard" aria-labelledby="page-dashboard-title">
+
+        <!-- Page Header -->
+        <div class="lp-page-header">
+          <div>
+            <h1 class="lp-page-title" id="page-dashboard-title">
+              Good morning, Alex 👋
+            </h1>
+            <p class="lp-page-desc" id="dashboard-subtitle">
+              Welcome back to LeadPilot — your AI Sales Operating System.
+              <span id="dashboard-date" aria-label="Today's date"></span>
+            </p>
+          </div>
+          <div class="lp-page-actions">
+            <button type="button" class="btn btn-secondary" id="btn-dashboard-export" data-action="export-report" aria-label="Export dashboard report">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export
+            </button>
+            <button type="button" class="btn btn-primary" id="btn-find-leads" data-action="open-find-leads" aria-label="Find new leads with AI">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              Find Leads
+            </button>
+          </div>
+        </div>
+
+        <!-- ── KPI Statistics Cards ── -->
+        <section aria-labelledby="kpi-heading" id="section-kpi">
+          <h2 id="kpi-heading" class="lp-text-xs lp-text-muted" style="margin-bottom:12px;text-transform:uppercase;letter-spacing:0.07em;font-weight:600">Overview</h2>
+          <div class="lp-kpi-grid" id="kpi-grid" role="list">
+
+            <!-- Total Leads -->
+            <article class="lp-kpi" role="listitem" id="kpi-total-leads" data-kpi="total-leads">
+              <div class="lp-kpi-top">
+                <div class="lp-kpi-icon" style="background:var(--blue-light);color:var(--blue)" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <span class="lp-kpi-change up" id="kpi-total-leads-change" aria-label="Up 12 percent this week">↑ 12%</span>
+              </div>
+              <div class="lp-kpi-value" id="kpi-total-leads-value" data-value="1284">1,284</div>
+              <div class="lp-kpi-label">Total Leads</div>
+              <div class="lp-sparkline" id="spark-total-leads" aria-hidden="true" data-sparkline="300,380,340,460,420,540,510,640,600,760,720,920">
+                <div class="lp-spark-bar" style="height:33%;background:var(--blue)"></div>
+                <div class="lp-spark-bar" style="height:41%;background:var(--blue)"></div>
+                <div class="lp-spark-bar" style="height:37%;background:var(--blue)"></div>
+                <div class="lp-spark-bar" style="height:50%;background:var(--blue)"></div>
+                <div class="lp-spark-bar" style="height:46%;background:var(--blue)"></div>
+                <div class="lp-spark-bar" style="height:59%;background:var(--blue)"></div>
+                <div class="lp-spark-bar" style="height:55%;background:var(--blue)"></div>
+                <div class="lp-spark-bar" style="height:70%;background:var(--blue)"></div>
+                <div class="lp-spark-bar" style="height:65%;background:var(--blue)"></div>
+                <div class="lp-spark-bar" style="height:83%;background:var(--blue)"></div>
+                <div class="lp-spark-bar" style="height:78%;background:var(--blue)"></div>
+                <div class="lp-spark-bar" style="height:100%;background:var(--blue)"></div>
+              </div>
+            </article>
+
+            <!-- Qualified Leads -->
+            <article class="lp-kpi" role="listitem" id="kpi-qualified" data-kpi="qualified-leads">
+              <div class="lp-kpi-top">
+                <div class="lp-kpi-icon" style="background:var(--green-light);color:var(--green)" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <span class="lp-kpi-change up" id="kpi-qualified-change" aria-label="Up 8 percent this week">↑ 8%</span>
+              </div>
+              <div class="lp-kpi-value" id="kpi-qualified-value" data-value="342">342</div>
+              <div class="lp-kpi-label">Qualified Leads</div>
+              <div class="lp-sparkline" aria-hidden="true">
+                <div class="lp-spark-bar" style="height:30%;background:var(--green)"></div>
+                <div class="lp-spark-bar" style="height:45%;background:var(--green)"></div>
+                <div class="lp-spark-bar" style="height:38%;background:var(--green)"></div>
+                <div class="lp-spark-bar" style="height:52%;background:var(--green)"></div>
+                <div class="lp-spark-bar" style="height:47%;background:var(--green)"></div>
+                <div class="lp-spark-bar" style="height:61%;background:var(--green)"></div>
+                <div class="lp-spark-bar" style="height:55%;background:var(--green)"></div>
+                <div class="lp-spark-bar" style="height:70%;background:var(--green)"></div>
+                <div class="lp-spark-bar" style="height:66%;background:var(--green)"></div>
+                <div class="lp-spark-bar" style="height:80%;background:var(--green)"></div>
+                <div class="lp-spark-bar" style="height:75%;background:var(--green)"></div>
+                <div class="lp-spark-bar" style="height:100%;background:var(--green)"></div>
+              </div>
+            </article>
+
+            <!-- AI Score -->
+            <article class="lp-kpi" role="listitem" id="kpi-ai-score" data-kpi="avg-ai-score">
+              <div class="lp-kpi-top">
+                <div class="lp-kpi-icon" style="background:var(--purple-light);color:var(--purple)" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </div>
+                <span class="lp-kpi-change up" id="kpi-ai-score-change" aria-label="Up 4 points">↑ 4 pts</span>
+              </div>
+              <div class="lp-kpi-value" id="kpi-ai-score-value" data-value="74">74.2</div>
+              <div class="lp-kpi-label">Avg AI Score</div>
+              <div class="lp-sparkline" aria-hidden="true">
+                <div class="lp-spark-bar" style="height:55%;background:var(--purple)"></div>
+                <div class="lp-spark-bar" style="height:62%;background:var(--purple)"></div>
+                <div class="lp-spark-bar" style="height:58%;background:var(--purple)"></div>
+                <div class="lp-spark-bar" style="height:66%;background:var(--purple)"></div>
+                <div class="lp-spark-bar" style="height:63%;background:var(--purple)"></div>
+                <div class="lp-spark-bar" style="height:70%;background:var(--purple)"></div>
+                <div class="lp-spark-bar" style="height:68%;background:var(--purple)"></div>
+                <div class="lp-spark-bar" style="height:74%;background:var(--purple)"></div>
+                <div class="lp-spark-bar" style="height:71%;background:var(--purple)"></div>
+                <div class="lp-spark-bar" style="height:80%;background:var(--purple)"></div>
+                <div class="lp-spark-bar" style="height:77%;background:var(--purple)"></div>
+                <div class="lp-spark-bar" style="height:100%;background:var(--purple)"></div>
+              </div>
+            </article>
+
+            <!-- Emails Sent -->
+            <article class="lp-kpi" role="listitem" id="kpi-emails" data-kpi="emails-sent">
+              <div class="lp-kpi-top">
+                <div class="lp-kpi-icon" style="background:var(--cyan-light);color:var(--cyan)" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <span class="lp-kpi-change up" id="kpi-emails-change" aria-label="Up 341 this week">↑ 341</span>
+              </div>
+              <div class="lp-kpi-value" id="kpi-emails-value" data-value="2140">2,140</div>
+              <div class="lp-kpi-label">Emails Sent</div>
+              <div class="lp-sparkline" aria-hidden="true">
+                <div class="lp-spark-bar" style="height:40%;background:var(--cyan)"></div>
+                <div class="lp-spark-bar" style="height:48%;background:var(--cyan)"></div>
+                <div class="lp-spark-bar" style="height:44%;background:var(--cyan)"></div>
+                <div class="lp-spark-bar" style="height:52%;background:var(--cyan)"></div>
+                <div class="lp-spark-bar" style="height:50%;background:var(--cyan)"></div>
+                <div class="lp-spark-bar" style="height:60%;background:var(--cyan)"></div>
+                <div class="lp-spark-bar" style="height:57%;background:var(--cyan)"></div>
+                <div class="lp-spark-bar" style="height:68%;background:var(--cyan)"></div>
+                <div class="lp-spark-bar" style="height:65%;background:var(--cyan)"></div>
+                <div class="lp-spark-bar" style="height:80%;background:var(--cyan)"></div>
+                <div class="lp-spark-bar" style="height:76%;background:var(--cyan)"></div>
+                <div class="lp-spark-bar" style="height:100%;background:var(--cyan)"></div>
+              </div>
+            </article>
+
+            <!-- Conversion Rate -->
+            <article class="lp-kpi" role="listitem" id="kpi-conversion" data-kpi="conversion-rate">
+              <div class="lp-kpi-top">
+                <div class="lp-kpi-icon" style="background:var(--yellow-light);color:var(--yellow)" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                </div>
+                <span class="lp-kpi-change up" id="kpi-conversion-change" aria-label="Up 5.1 percent">↑ 5.1%</span>
+              </div>
+              <div class="lp-kpi-value" id="kpi-conversion-value" data-value="34.2">34.2%</div>
+              <div class="lp-kpi-label">Reply Rate</div>
+              <div class="lp-sparkline" aria-hidden="true">
+                <div class="lp-spark-bar" style="height:50%;background:var(--yellow)"></div>
+                <div class="lp-spark-bar" style="height:60%;background:var(--yellow)"></div>
+                <div class="lp-spark-bar" style="height:56%;background:var(--yellow)"></div>
+                <div class="lp-spark-bar" style="height:65%;background:var(--yellow)"></div>
+                <div class="lp-spark-bar" style="height:62%;background:var(--yellow)"></div>
+                <div class="lp-spark-bar" style="height:73%;background:var(--yellow)"></div>
+                <div class="lp-spark-bar" style="height:70%;background:var(--yellow)"></div>
+                <div class="lp-spark-bar" style="height:80%;background:var(--yellow)"></div>
+                <div class="lp-spark-bar" style="height:77%;background:var(--yellow)"></div>
+                <div class="lp-spark-bar" style="height:88%;background:var(--yellow)"></div>
+                <div class="lp-spark-bar" style="height:85%;background:var(--yellow)"></div>
+                <div class="lp-spark-bar" style="height:100%;background:var(--yellow)"></div>
+              </div>
+            </article>
+
+            <!-- Monthly Revenue -->
+            <article class="lp-kpi" role="listitem" id="kpi-revenue" data-kpi="monthly-revenue">
+              <div class="lp-kpi-top">
+                <div class="lp-kpi-icon" style="background:var(--green-light);color:var(--green)" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <span class="lp-kpi-change up" id="kpi-revenue-change" aria-label="Up 4,200 euros">↑ €4.2K</span>
+              </div>
+              <div class="lp-kpi-value" id="kpi-revenue-value" data-value="24800">€24,800</div>
+              <div class="lp-kpi-label">Monthly Revenue</div>
+              <div class="lp-sparkline" aria-hidden="true">
+                <div class="lp-spark-bar" style="height:38%;background:var(--green)"></div>
+                <div class="lp-spark-bar" style="height:45%;background:var(--green)"></div>
+                <div class="lp-spark-bar" style="height:42%;background:var(--green)"></div>
+                <div class="lp-spark-bar" style="height:52%;background:var(--green)"></div>
+                <div class="lp-spark-bar" style="height:48%;background:var(--green)"></div>
+                <div class="lp-spark-bar" style="height:58%;background:var(--green)"></div>
+                <div class="lp-spark-bar" style="height:55%;background:var(--green)"></div>
+                <div class="lp-spark-bar" style="height:65%;background:var(--green)"></div>
+                <div class="lp-spark-bar" style="height:62%;background:var(--green)"></div>
+                <div class="lp-spark-bar" style="height:75%;background:var(--green)"></div>
+                <div class="lp-spark-bar" style="height:72%;background:var(--green)"></div>
+                <div class="lp-spark-bar" style="height:100%;background:var(--green)"></div>
+              </div>
+            </article>
+
+            <!-- Active Integrations -->
+            <article class="lp-kpi" role="listitem" id="kpi-integrations" data-kpi="active-integrations">
+              <div class="lp-kpi-top">
+                <div class="lp-kpi-icon" style="background:var(--orange-light);color:var(--orange)" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </div>
+                <span class="lp-kpi-change neutral" id="kpi-integrations-change">— same</span>
+              </div>
+              <div class="lp-kpi-value" id="kpi-integrations-value" data-value="5">5</div>
+              <div class="lp-kpi-label">Active Integrations</div>
+              <div class="lp-sparkline" aria-hidden="true">
+                <div class="lp-spark-bar" style="height:40%;background:var(--orange)"></div>
+                <div class="lp-spark-bar" style="height:40%;background:var(--orange)"></div>
+                <div class="lp-spark-bar" style="height:40%;background:var(--orange)"></div>
+                <div class="lp-spark-bar" style="height:60%;background:var(--orange)"></div>
+                <div class="lp-spark-bar" style="height:60%;background:var(--orange)"></div>
+                <div class="lp-spark-bar" style="height:60%;background:var(--orange)"></div>
+                <div class="lp-spark-bar" style="height:80%;background:var(--orange)"></div>
+                <div class="lp-spark-bar" style="height:80%;background:var(--orange)"></div>
+                <div class="lp-spark-bar" style="height:80%;background:var(--orange)"></div>
+                <div class="lp-spark-bar" style="height:100%;background:var(--orange)"></div>
+                <div class="lp-spark-bar" style="height:100%;background:var(--orange)"></div>
+                <div class="lp-spark-bar" style="height:100%;background:var(--orange)"></div>
+              </div>
+            </article>
+
+            <!-- Credits Remaining -->
+            <article class="lp-kpi" role="listitem" id="kpi-credits" data-kpi="credits-remaining">
+              <div class="lp-kpi-top">
+                <div class="lp-kpi-icon" style="background:var(--red-light);color:var(--red)" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <span class="lp-kpi-change down" id="kpi-credits-change" aria-label="Down 82 credits used">↓ 82</span>
+              </div>
+              <div class="lp-kpi-value" id="kpi-credits-value" data-value="820">820</div>
+              <div class="lp-kpi-label">Credits Remaining</div>
+              <div style="margin-top:8px">
+                <div class="lp-score-bar" role="progressbar" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100" aria-label="82 percent credits remaining">
+                  <div class="lp-score-fill" id="credits-fill" style="width:82%;background:var(--green)"></div>
+                </div>
+                <div class="lp-text-xs lp-text-muted lp-mt-1">820 / 1,000 credits</div>
+              </div>
+            </article>
+
+          </div><!-- /kpi-grid -->
+        </section>
+
+
+        <!-- ── Charts Section ── -->
+        <section aria-labelledby="charts-heading" id="section-charts" class="lp-mt-4 lp-mb-4">
+          <h2 id="charts-heading" class="lp-text-xs lp-text-muted" style="margin-bottom:12px;text-transform:uppercase;letter-spacing:0.07em;font-weight:600">Analytics</h2>
+
+          <!-- Range Tabs (shared) -->
+          <div class="lp-tabs" id="chart-range-tabs" role="tablist" aria-label="Date range">
+            <button type="button" class="lp-tab active" role="tab" aria-selected="true" data-range="7d" id="tab-7d" aria-controls="chart-area">7 Days</button>
+            <button type="button" class="lp-tab" role="tab" aria-selected="false" data-range="30d" id="tab-30d" aria-controls="chart-area">30 Days</button>
+            <button type="button" class="lp-tab" role="tab" aria-selected="false" data-range="90d" id="tab-90d" aria-controls="chart-area">90 Days</button>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px" id="chart-area" role="tabpanel">
+
+            <!-- Lead Growth Chart -->
+            <div class="lp-card" id="chart-lead-growth" aria-label="Lead growth chart">
+              <div class="lp-card-header">
+                <h3 class="lp-card-title">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                  Lead Growth
+                </h3>
+                <span class="lp-badge lp-badge-green" id="lead-growth-kpi">+250% vs 6mo</span>
+              </div>
+              <!-- Chart placeholder — JS renders canvas or SVG here -->
+              <div class="chart-placeholder" id="chart-lead-growth-canvas" data-chart="bar" data-metric="leads" style="height:140px;background:var(--gray-50);border-radius:var(--r);display:flex;align-items:center;justify-content:center;color:var(--gray-300);font-size:12px" aria-hidden="true">
+                Chart renders here
+              </div>
+            </div>
+
+            <!-- Conversion Funnel Chart -->
+            <div class="lp-card" id="chart-conversion" aria-label="Conversion funnel">
+              <div class="lp-card-header">
+                <h3 class="lp-card-title">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                  Conversion Funnel
+                </h3>
+              </div>
+              <!-- Funnel bars -->
+              <div id="chart-funnel-canvas" data-chart="funnel">
+                <div class="funnel-row">
+                  <span class="funnel-label">Leads</span>
+                  <div class="funnel-bar-bg"><div class="funnel-bar-fill" style="width:100%;background:var(--blue)" data-funnel-pct="100">1,284</div></div>
+                  <span class="funnel-pct">100%</span>
+                </div>
+                <div class="funnel-row">
+                  <span class="funnel-label">Emailed</span>
+                  <div class="funnel-bar-bg"><div class="funnel-bar-fill" style="width:69%;background:var(--purple)" data-funnel-pct="69">891</div></div>
+                  <span class="funnel-pct">69%</span>
+                </div>
+                <div class="funnel-row">
+                  <span class="funnel-label">Opened</span>
+                  <div class="funnel-bar-bg"><div class="funnel-bar-fill" style="width:38%;background:var(--cyan)" data-funnel-pct="38">489</div></div>
+                  <span class="funnel-pct">38%</span>
+                </div>
+                <div class="funnel-row">
+                  <span class="funnel-label">Replied</span>
+                  <div class="funnel-bar-bg"><div class="funnel-bar-fill" style="width:13%;background:var(--green)" data-funnel-pct="13">164</div></div>
+                  <span class="funnel-pct">13%</span>
+                </div>
+                <div class="funnel-row">
+                  <span class="funnel-label">Meetings</span>
+                  <div class="funnel-bar-bg"><div class="funnel-bar-fill" style="width:2.3%;background:var(--yellow)" data-funnel-pct="2.3" style="min-width:28px">30</div></div>
+                  <span class="funnel-pct">2.3%</span>
+                </div>
+                <div class="funnel-row">
+                  <span class="funnel-label">Closed</span>
+                  <div class="funnel-bar-bg"><div class="funnel-bar-fill" style="width:0.6%;background:var(--red)" data-funnel-pct="0.6" style="min-width:20px">8</div></div>
+                  <span class="funnel-pct">0.6%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Revenue Chart -->
+            <div class="lp-card" id="chart-revenue" aria-label="Revenue trend chart">
+              <div class="lp-card-header">
+                <h3 class="lp-card-title">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  Revenue Trend
+                </h3>
+                <span class="lp-badge lp-badge-blue">Monthly</span>
+              </div>
+              <div class="chart-placeholder" id="chart-revenue-canvas" data-chart="line" data-metric="revenue" style="height:140px;background:var(--gray-50);border-radius:var(--r);display:flex;align-items:center;justify-content:center;color:var(--gray-300);font-size:12px" aria-hidden="true">
+                Chart renders here
+              </div>
+            </div>
+
+            <!-- Email Performance Chart -->
+            <div class="lp-card" id="chart-email-perf" aria-label="Email performance chart">
+              <div class="lp-card-header">
+                <h3 class="lp-card-title">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  Email Performance
+                </h3>
+                <button type="button" class="btn btn-ghost btn-sm" data-action="export-email-chart">Export</button>
+              </div>
+              <div class="chart-placeholder" id="chart-email-canvas" data-chart="grouped-bar" data-metric="email" style="height:140px;background:var(--gray-50);border-radius:var(--r);display:flex;align-items:center;justify-content:center;color:var(--gray-300);font-size:12px" aria-hidden="true">
+                Chart renders here
+              </div>
+              <div style="display:flex;gap:16px;margin-top:10px" aria-label="Legend">
+                <div class="lp-flex-center lp-gap-2"><span style="width:10px;height:10px;border-radius:50%;background:var(--blue);display:inline-block" aria-hidden="true"></span><span class="lp-text-xs lp-text-muted">Open Rate</span></div>
+                <div class="lp-flex-center lp-gap-2"><span style="width:10px;height:10px;border-radius:50%;background:var(--green);display:inline-block" aria-hidden="true"></span><span class="lp-text-xs lp-text-muted">Reply Rate</span></div>
+                <div class="lp-flex-center lp-gap-2"><span style="width:10px;height:10px;border-radius:50%;background:var(--purple);display:inline-block" aria-hidden="true"></span><span class="lp-text-xs lp-text-muted">CTR</span></div>
+              </div>
+            </div>
+
+          </div><!-- /chart-area -->
+        </section><!-- /section-charts -->
+
+
+        <!-- ── Activity Feed + Pipeline side-by-side ── -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px">
+
+          <!-- Activity Feed -->
+          <section class="lp-card" id="section-activity" aria-labelledby="activity-heading">
+            <div class="lp-card-header">
+              <h2 class="lp-card-title" id="activity-heading">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Recent Activity
+              </h2>
+              <span class="lp-badge lp-badge-green" style="font-size:9px">LIVE</span>
+            </div>
+            <ol id="activity-feed" aria-label="Activity timeline" style="list-style:none">
+              <li class="lp-flex lp-gap-2" style="padding:9px 0;border-bottom:1px solid var(--gray-50)" data-activity-id="a1" data-activity-type="lead-found">
+                <div style="display:flex;flex-direction:column;align-items:center;padding-top:3px">
+                  <span style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0" aria-hidden="true"></span>
+                  <span style="width:1px;flex:1;background:var(--gray-100);margin-top:4px" aria-hidden="true"></span>
+                </div>
+                <div>
+                  <div class="lp-text-sm" style="font-weight:500;color:var(--gray-800)">Found 89 leads: Logistics companies Germany</div>
+                  <time class="lp-text-xs lp-text-muted" datetime="2025-01-21T09:58">2 min ago</time>
+                </div>
+              </li>
+              <li class="lp-flex lp-gap-2" style="padding:9px 0;border-bottom:1px solid var(--gray-50)" data-activity-id="a2" data-activity-type="email-generated">
+                <div style="display:flex;flex-direction:column;align-items:center;padding-top:3px">
+                  <span style="width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0" aria-hidden="true"></span>
+                  <span style="width:1px;flex:1;background:var(--gray-100);margin-top:4px" aria-hidden="true"></span>
+                </div>
+                <div>
+                  <div class="lp-text-sm" style="font-weight:500;color:var(--gray-800)">Generated cold email for Microsoft CZ</div>
+                  <time class="lp-text-xs lp-text-muted" datetime="2025-01-21T09:46">14 min ago</time>
+                </div>
+              </li>
+              <li class="lp-flex lp-gap-2" style="padding:9px 0;border-bottom:1px solid var(--gray-50)" data-activity-id="a3" data-activity-type="campaign-sent">
+                <div style="display:flex;flex-direction:column;align-items:center;padding-top:3px">
+                  <span style="width:8px;height:8px;border-radius:50%;background:var(--purple);flex-shrink:0" aria-hidden="true"></span>
+                  <span style="width:1px;flex:1;background:var(--gray-100);margin-top:4px" aria-hidden="true"></span>
+                </div>
+                <div>
+                  <div class="lp-text-sm" style="font-weight:500;color:var(--gray-800)">Campaign "Germany SaaS Q1" launched — 89 emails</div>
+                  <time class="lp-text-xs lp-text-muted" datetime="2025-01-21T09:00">1 hour ago</time>
+                </div>
+              </li>
+              <li class="lp-flex lp-gap-2" style="padding:9px 0;border-bottom:1px solid var(--gray-50)" data-activity-id="a4" data-activity-type="ai-analysis">
+                <div style="display:flex;flex-direction:column;align-items:center;padding-top:3px">
+                  <span style="width:8px;height:8px;border-radius:50%;background:var(--cyan);flex-shrink:0" aria-hidden="true"></span>
+                  <span style="width:1px;flex:1;background:var(--gray-100);margin-top:4px" aria-hidden="true"></span>
+                </div>
+                <div>
+                  <div class="lp-text-sm" style="font-weight:500;color:var(--gray-800)">AI analyzed Tesla Czech — score 94/100</div>
+                  <time class="lp-text-xs lp-text-muted" datetime="2025-01-21T08:00">2 hours ago</time>
+                </div>
+              </li>
+              <li class="lp-flex lp-gap-2" style="padding:9px 0;border-bottom:1px solid var(--gray-50)" data-activity-id="a5" data-activity-type="import">
+                <div style="display:flex;flex-direction:column;align-items:center;padding-top:3px">
+                  <span style="width:8px;height:8px;border-radius:50%;background:var(--yellow);flex-shrink:0" aria-hidden="true"></span>
+                  <span style="width:1px;flex:1;background:var(--gray-100);margin-top:4px" aria-hidden="true"></span>
+                </div>
+                <div>
+                  <div class="lp-text-sm" style="font-weight:500;color:var(--gray-800)">Imported 340 leads from CSV file</div>
+                  <time class="lp-text-xs lp-text-muted" datetime="2025-01-20">Yesterday</time>
+                </div>
+              </li>
+              <li class="lp-flex lp-gap-2" style="padding:9px 0" data-activity-id="a6" data-activity-type="save">
+                <div style="display:flex;flex-direction:column;align-items:center;padding-top:3px">
+                  <span style="width:8px;height:8px;border-radius:50%;background:var(--red);flex-shrink:0" aria-hidden="true"></span>
+                </div>
+                <div>
+                  <div class="lp-text-sm" style="font-weight:500;color:var(--gray-800)">Saved DataSynth Ltd to CRM pipeline</div>
+                  <time class="lp-text-xs lp-text-muted" datetime="2025-01-20">Yesterday</time>
+                </div>
+              </li>
+            </ol>
+            <button type="button" class="btn btn-ghost btn-sm lp-w-full" style="margin-top:10px;justify-content:center" data-action="view-all-activity">View all activity</button>
+          </section>
+
+          <!-- CRM Mini Pipeline -->
+          <section class="lp-card" id="section-pipeline" aria-labelledby="pipeline-heading">
+            <div class="lp-card-header">
+              <h2 class="lp-card-title" id="pipeline-heading">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                CRM Pipeline
+              </h2>
+              <button type="button" class="btn btn-ghost btn-sm" data-action="goto-crm" data-nav="leads">Full Board →</button>
+            </div>
+            <div class="mini-kanban" id="mini-kanban" role="list" aria-label="CRM pipeline stages">
+              <div class="mini-kanban-col" role="listitem" data-stage="new">
+                <div class="mini-kanban-head" style="color:var(--gray-600);background:var(--gray-100)">New</div>
+                <div class="mini-kanban-card" data-lead-id="1" data-action="open-lead" tabindex="0"><div class="mini-kanban-card-name">TechScale GmbH</div><div class="mini-kanban-card-val">€4,200</div></div>
+                <div class="mini-kanban-card" data-lead-id="4" data-action="open-lead" tabindex="0"><div class="mini-kanban-card-name">MarketEdge</div><div class="mini-kanban-card-val">€2,800</div></div>
+              </div>
+              <div class="mini-kanban-col" role="listitem" data-stage="contacted">
+                <div class="mini-kanban-head" style="color:var(--blue);background:var(--blue-light)">Contacted</div>
+                <div class="mini-kanban-card" data-lead-id="2" data-action="open-lead" tabindex="0"><div class="mini-kanban-card-name">LogiFlow s.r.o.</div><div class="mini-kanban-card-val">€6,400</div></div>
+              </div>
+              <div class="mini-kanban-col" role="listitem" data-stage="interested">
+                <div class="mini-kanban-head" style="color:var(--yellow);background:var(--yellow-light)">Interested</div>
+                <div class="mini-kanban-card" data-lead-id="3" data-action="open-lead" tabindex="0"><div class="mini-kanban-card-name">FinVault AG</div><div class="mini-kanban-card-val">€12,000</div></div>
+              </div>
+              <div class="mini-kanban-col" role="listitem" data-stage="meeting">
+                <div class="mini-kanban-head" style="color:var(--green);background:var(--green-light)">Meeting</div>
+                <div class="mini-kanban-card" data-lead-id="5" data-action="open-lead" tabindex="0"><div class="mini-kanban-card-name">CloudBurst Inc</div><div class="mini-kanban-card-val">€8,500</div></div>
+              </div>
+              <div class="mini-kanban-col" role="listitem" data-stage="won">
+                <div class="mini-kanban-head" style="color:#065F46;background:var(--green-light)">Won ✓</div>
+                <div class="mini-kanban-card" data-lead-id="9" data-action="open-lead" tabindex="0"><div class="mini-kanban-card-name">SalesForge</div><div class="mini-kanban-card-val">€9,900</div></div>
+              </div>
+            </div>
+            <div class="lp-divider"></div>
+            <div class="lp-between">
+              <div>
+                <div class="lp-text-xs lp-text-muted">Total pipeline value</div>
+                <div style="font-size:20px;font-weight:700;color:var(--gray-900)" id="pipeline-total">€43,800</div>
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm" data-action="goto-crm">Manage →</button>
+            </div>
+          </section>
+
+        </div><!-- /activity + pipeline row -->
+
+      </section><!-- /page-dashboard -->
+
+
+      <!-- ======================================================
+           PAGE: LEAD MANAGEMENT
+           data-page="leads"
+           ====================================================== -->
+      <section id="page-leads" class="lp-page" data-page="leads" aria-labelledby="page-leads-title">
+
+        <!-- Page Header -->
+        <div class="lp-page-header">
+          <div>
+            <h1 class="lp-page-title" id="page-leads-title">Lead Management</h1>
+            <p class="lp-page-desc">Manage, score and track all your leads in one place.</p>
+          </div>
+          <div class="lp-page-actions">
+            <button type="button" class="btn btn-secondary" id="btn-import-leads" data-action="import-leads" aria-label="Import leads from CSV">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Import
+            </button>
+            <button type="button" class="btn btn-secondary" id="btn-export-leads" data-action="export-leads" aria-label="Export leads to CSV">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export CSV
+            </button>
+            <button type="button" class="btn btn-primary" id="btn-add-lead" data-action="open-add-lead-modal" aria-label="Add a new lead">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Lead
+            </button>
+          </div>
+        </div>
+
+        <!-- Bulk action bar (hidden until rows checked) -->
+        <div class="lp-bulk-bar" id="bulk-action-bar" hidden role="toolbar" aria-label="Bulk actions">
+          <span id="bulk-selected-count" aria-live="polite">0 selected</span>
+          <button type="button" class="btn btn-sm btn-secondary" data-bulk-action="score-selected">Score with AI</button>
+          <button type="button" class="btn btn-sm btn-secondary" data-bulk-action="generate-emails">Generate Emails</button>
+          <button type="button" class="btn btn-sm btn-secondary" data-bulk-action="add-to-campaign">Add to Campaign</button>
+          <button type="button" class="btn btn-sm btn-danger" data-bulk-action="delete-selected">Delete</button>
+          <button type="button" class="btn btn-sm btn-ghost" data-action="clear-bulk-selection" style="margin-left:auto">✕ Clear</button>
+        </div>
+
+        <!-- Filters -->
+        <form id="leads-filter-form" name="leads-filters" class="lp-filter-bar" role="search" aria-label="Filter leads" onsubmit="return false">
+
+          <div class="lp-input-prefix">
+            <span class="prefix-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            </span>
+            <input
+              type="search"
+              id="leads-search"
+              name="leads-search"
+              class="lp-input lp-select"
+              placeholder="Search company, contact…"
+              autocomplete="off"
+              style="width:200px"
+              data-filter="search"
+            />
+          </div>
+
+          <select id="filter-industry" name="industry" class="lp-input lp-select" style="width:140px" data-filter="industry" aria-label="Filter by industry">
+            <option value="">All Industries</option>
+            <option value="SaaS">SaaS</option>
+            <option value="Logistics">Logistics</option>
+            <option value="Fintech">Fintech</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Healthcare">Healthcare</option>
+            <option value="Manufacturing">Manufacturing</option>
+            <option value="Consulting">Consulting</option>
+            <option value="E-commerce">E-commerce</option>
+          </select>
+
+          <select id="filter-country" name="country" class="lp-input lp-select" style="width:130px" data-filter="country" aria-label="Filter by country">
+            <option value="">All Countries</option>
+            <option value="Germany">Germany</option>
+            <option value="Czech Republic">Czech Republic</option>
+            <option value="Switzerland">Switzerland</option>
+            <option value="UK">United Kingdom</option>
+            <option value="USA">United States</option>
+            <option value="Netherlands">Netherlands</option>
+            <option value="Poland">Poland</option>
+          </select>
+
+          <select id="filter-status" name="status" class="lp-input lp-select" style="width:130px" data-filter="status" aria-label="Filter by status">
+            <option value="">All Statuses</option>
+            <option value="new">New</option>
+            <option value="contacted">Contacted</option>
+            <option value="interested">Interested</option>
+            <option value="converted">Converted</option>
+            <option value="rejected">Rejected</option>
+          </select>
+
+          <select id="filter-score" name="ai-score" class="lp-input lp-select" style="width:120px" data-filter="score" aria-label="Filter by AI score">
+            <option value="">All Scores</option>
+            <option value="A">A (80–100)</option>
+            <option value="B">B (60–79)</option>
+            <option value="C">C (40–59)</option>
+            <option value="D">D (&lt;40)</option>
+          </select>
+
+          <select id="filter-size" name="company-size" class="lp-input lp-select" style="width:130px" data-filter="size" aria-label="Filter by company size">
+            <option value="">Any Size</option>
+            <option value="1-10">1–10</option>
+            <option value="11-50">11–50</option>
+            <option value="51-200">51–200</option>
+            <option value="201-1000">201–1000</option>
+            <option value="1000+">1000+</option>
+          </select>
+
+          <button type="reset" class="btn btn-ghost btn-sm" id="btn-reset-filters" data-action="reset-filters" aria-label="Reset all filters">Reset</button>
+
+          <span class="lp-filter-count" id="leads-result-count" aria-live="polite" aria-atomic="true">Showing <strong id="leads-shown">8</strong> of <strong id="leads-total">1,284</strong></span>
+        </form>
+
+        <!-- Leads Table -->
+        <div class="lp-card lp-p-0" id="leads-table-card" style="padding:0;overflow:hidden">
+          <div class="lp-table-wrap">
+            <table class="lp-table" id="leads-table" aria-label="Leads table" aria-rowcount="1284">
+              <thead>
+                <tr>
+                  <th class="col-check no-sort" style="padding-left:16px">
+                    <input type="checkbox" class="lp-checkbox" id="select-all-leads" aria-label="Select all leads" data-action="select-all-leads" />
+                  </th>
+                  <th data-sort="company" scope="col">Company</th>
+                  <th data-sort="industry" scope="col">Industry</th>
+                  <th data-sort="country" scope="col">Country</th>
+                  <th data-sort="score" scope="col">AI Score</th>
+                  <th data-sort="contact" scope="col">Contact</th>
+                  <th data-sort="status" scope="col">Status</th>
+                  <th data-sort="date" scope="col">Date Added</th>
+                  <th class="col-actions no-sort" scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="leads-tbody">
+
+                <!-- Row 1 -->
+                <tr data-lead-id="1" data-company="TechScale GmbH" data-industry="SaaS" data-country="Germany" data-score="92" data-status="new">
+                  <td class="col-check" style="padding-left:16px"><input type="checkbox" class="lp-checkbox lead-row-check" data-lead-id="1" aria-label="Select TechScale GmbH" /></td>
+                  <td>
+                    <div class="lp-flex-center lp-gap-2">
+                      <div class="lp-avatar" style="width:28px;height:28px;font-size:10px;background:var(--blue-dark)" aria-hidden="true">T</div>
+                      <div>
+                        <div style="font-weight:600;font-size:13px;color:var(--gray-900)">TechScale GmbH</div>
+                        <div class="lp-text-xs lp-text-muted">techscale.de</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="lp-badge lp-badge-gray">SaaS</span></td>
+                  <td>Germany · Berlin</td>
+                  <td>
+                    <div class="lp-flex-center lp-gap-2">
+                      <span class="lp-score-badge score-A" aria-label="AI score 92, grade A">92</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div style="font-size:12px;font-weight:500">Klaus Weber</div>
+                    <div class="lp-text-xs lp-text-muted">hello@techscale.de</div>
+                  </td>
+                  <td><span class="lp-badge status-new">New</span></td>
+                  <td class="lp-text-muted lp-text-xs"><time datetime="2025-01-10">Jan 10, 2025</time></td>
+                  <td class="col-actions">
+                    <div class="lp-flex lp-gap-2">
+                      <button type="button" class="btn btn-secondary btn-sm" data-action="analyze-lead" data-lead-id="1" title="Score with AI" aria-label="Analyze TechScale GmbH with AI">Score</button>
+                      <button type="button" class="btn btn-secondary btn-sm" data-action="generate-email" data-lead-id="1" title="Generate email" aria-label="Generate email for TechScale GmbH">Email</button>
+                      <div class="lp-dropdown" id="lead-menu-1">
+                        <button type="button" class="btn btn-ghost btn-sm btn-icon" data-dropdown="lead-menu-1-dd" aria-haspopup="true" aria-expanded="false" aria-label="More actions for TechScale GmbH">•••</button>
+                        <div class="lp-dropdown-menu" id="lead-menu-1-dd" role="menu">
+                          <button type="button" class="lp-dropdown-item" role="menuitem" data-action="edit-lead" data-lead-id="1">Edit</button>
+                          <button type="button" class="lp-dropdown-item" role="menuitem" data-action="add-to-campaign" data-lead-id="1">Add to Campaign</button>
+                          <button type="button" class="lp-dropdown-item" role="menuitem" data-action="view-company" data-lead-id="1">Company Profile</button>
+                          <div class="lp-dropdown-divider"></div>
+                          <button type="button" class="lp-dropdown-item danger" role="menuitem" data-action="delete-lead" data-lead-id="1">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Row 2 -->
+                <tr data-lead-id="2" data-company="LogiFlow s.r.o." data-industry="Logistics" data-country="Czech Republic" data-score="78" data-status="contacted">
+                  <td class="col-check" style="padding-left:16px"><input type="checkbox" class="lp-checkbox lead-row-check" data-lead-id="2" aria-label="Select LogiFlow s.r.o." /></td>
+                  <td>
+                    <div class="lp-flex-center lp-gap-2">
+                      <div class="lp-avatar" style="width:28px;height:28px;font-size:10px;background:#059669" aria-hidden="true">L</div>
+                      <div>
+                        <div style="font-weight:600;font-size:13px;color:var(--gray-900)">LogiFlow s.r.o.</div>
+                        <div class="lp-text-xs lp-text-muted">logiflow.cz</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="lp-badge lp-badge-cyan">Logistics</span></td>
+                  <td>Czech Republic · Prague</td>
+                  <td><span class="lp-score-badge score-B" aria-label="AI score 78, grade B">78</span></td>
+                  <td>
+                    <div style="font-size:12px;font-weight:500">Marek Novák</div>
+                    <div class="lp-text-xs lp-text-muted">info@logiflow.cz</div>
+                  </td>
+                  <td><span class="lp-badge status-contacted">Contacted</span></td>
+                  <td class="lp-text-muted lp-text-xs"><time datetime="2025-01-05">Jan 5, 2025</time></td>
+                  <td class="col-actions">
+                    <div class="lp-flex lp-gap-2">
+                      <button type="button" class="btn btn-secondary btn-sm" data-action="analyze-lead" data-lead-id="2" aria-label="Analyze LogiFlow">Score</button>
+                      <button type="button" class="btn btn-secondary btn-sm" data-action="generate-email" data-lead-id="2" aria-label="Generate email for LogiFlow">Email</button>
+                      <div class="lp-dropdown" id="lead-menu-2">
+                        <button type="button" class="btn btn-ghost btn-sm btn-icon" data-dropdown="lead-menu-2-dd" aria-haspopup="true" aria-expanded="false" aria-label="More actions for LogiFlow">•••</button>
+                        <div class="lp-dropdown-menu" id="lead-menu-2-dd" role="menu">
+                          <button type="button" class="lp-dropdown-item" role="menuitem" data-action="edit-lead" data-lead-id="2">Edit</button>
+                          <button type="button" class="lp-dropdown-item" role="menuitem" data-action="add-to-campaign" data-lead-id="2">Add to Campaign</button>
+                          <div class="lp-dropdown-divider"></div>
+                          <button type="button" class="lp-dropdown-item danger" role="menuitem" data-action="delete-lead" data-lead-id="2">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Row 3 -->
+                <tr data-lead-id="3" data-company="FinVault AG" data-industry="Fintech" data-country="Switzerland" data-score="85" data-status="interested">
+                  <td class="col-check" style="padding-left:16px"><input type="checkbox" class="lp-checkbox lead-row-check" data-lead-id="3" aria-label="Select FinVault AG" /></td>
+                  <td>
+                    <div class="lp-flex-center lp-gap-2">
+                      <div class="lp-avatar" style="width:28px;height:28px;font-size:10px;background:var(--purple)" aria-hidden="true">F</div>
+                      <div>
+                        <div style="font-weight:600;font-size:13px;color:var(--gray-900)">FinVault AG</div>
+                        <div class="lp-text-xs lp-text-muted">finvault.ch</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="lp-badge lp-badge-purple">Fintech</span></td>
+                  <td>Switzerland · Zürich</td>
+                  <td><span class="lp-score-badge score-A" aria-label="AI score 85, grade A">85</span></td>
+                  <td>
+                    <div style="font-size:12px;font-weight:500">Sarah Müller</div>
+                    <div class="lp-text-xs lp-text-muted">contact@finvault.ch</div>
+                  </td>
+                  <td><span class="lp-badge status-interested">Interested</span></td>
+                  <td class="lp-text-muted lp-text-xs"><time datetime="2024-12-20">Dec 20, 2024</time></td>
+                  <td class="col-actions">
+                    <div class="lp-flex lp-gap-2">
+                      <button type="button" class="btn btn-secondary btn-sm" data-action="analyze-lead" data-lead-id="3" aria-label="Analyze FinVault AG">Score</button>
+                      <button type="button" class="btn btn-secondary btn-sm" data-action="generate-email" data-lead-id="3" aria-label="Generate email for FinVault AG">Email</button>
+                      <div class="lp-dropdown" id="lead-menu-3">
+                        <button type="button" class="btn btn-ghost btn-sm btn-icon" data-dropdown="lead-menu-3-dd" aria-haspopup="true" aria-expanded="false" aria-label="More actions for FinVault">•••</button>
+                        <div class="lp-dropdown-menu" id="lead-menu-3-dd" role="menu">
+                          <button type="button" class="lp-dropdown-item" role="menuitem" data-action="edit-lead" data-lead-id="3">Edit</button>
+                          <button type="button" class="lp-dropdown-item" role="menuitem" data-action="add-to-campaign" data-lead-id="3">Add to Campaign</button>
+                          <div class="lp-dropdown-divider"></div>
+                          <button type="button" class="lp-dropdown-item danger" role="menuitem" data-action="delete-lead" data-lead-id="3">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Row 4 -->
+                <tr data-lead-id="4" data-company="CloudBurst Inc" data-industry="Cloud" data-country="USA" data-score="90" data-status="converted">
+                  <td class="col-check" style="padding-left:16px"><input type="checkbox" class="lp-checkbox lead-row-check" data-lead-id="4" aria-label="Select CloudBurst Inc" /></td>
+                  <td>
+                    <div class="lp-flex-center lp-gap-2">
+                      <div class="lp-avatar" style="width:28px;height:28px;font-size:10px;background:var(--cyan)" aria-hidden="true">C</div>
+                      <div>
+                        <div style="font-weight:600;font-size:13px;color:var(--gray-900)">CloudBurst Inc</div>
+                        <div class="lp-text-xs lp-text-muted">cloudburst.io</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="lp-badge lp-badge-cyan">Cloud</span></td>
+                  <td>USA · Austin</td>
+                  <td><span class="lp-score-badge score-A" aria-label="AI score 90, grade A">90</span></td>
+                  <td>
+                    <div style="font-size:12px;font-weight:500">Mike Davis</div>
+                    <div class="lp-text-xs lp-text-muted">sales@cloudburst.io</div>
+                  </td>
+                  <td><span class="lp-badge status-converted">Converted</span></td>
+                  <td class="lp-text-muted lp-text-xs"><time datetime="2024-12-01">Dec 1, 2024</time></td>
+                  <td class="col-actions">
+                    <div class="lp-flex lp-gap-2">
+                      <button type="button" class="btn btn-secondary btn-sm" data-action="analyze-lead" data-lead-id="4" aria-label="Analyze CloudBurst Inc">Score</button>
+                      <button type="button" class="btn btn-secondary btn-sm" data-action="generate-email" data-lead-id="4" aria-label="Generate email for CloudBurst">Email</button>
+                      <div class="lp-dropdown" id="lead-menu-4">
+                        <button type="button" class="btn btn-ghost btn-sm btn-icon" data-dropdown="lead-menu-4-dd" aria-haspopup="true" aria-expanded="false" aria-label="More actions for CloudBurst">•••</button>
+                        <div class="lp-dropdown-menu" id="lead-menu-4-dd" role="menu">
+                          <button type="button" class="lp-dropdown-item" role="menuitem" data-action="edit-lead" data-lead-id="4">Edit</button>
+                          <button type="button" class="lp-dropdown-item" role="menuitem" data-action="add-to-campaign" data-lead-id="4">Add to Campaign</button>
+                          <div class="lp-dropdown-divider"></div>
+                          <button type="button" class="lp-dropdown-item danger" role="menuitem" data-action="delete-lead" data-lead-id="4">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Row 5 -->
+                <tr data-lead-id="5" data-company="DataSynth Ltd" data-industry="Analytics" data-country="UK" data-score="88" data-status="contacted">
+                  <td class="col-check" style="padding-left:16px"><input type="checkbox" class="lp-checkbox lead-row-check" data-lead-id="5" aria-label="Select DataSynth Ltd" /></td>
+                  <td>
+                    <div class="lp-flex-center lp-gap-2">
+                      <div class="lp-avatar" style="width:28px;height:28px;font-size:10px;background:#0891B2" aria-hidden="true">D</div>
+                      <div>
+                        <div style="font-weight:600;font-size:13px;color:var(--gray-900)">DataSynth Ltd</div>
+                        <div class="lp-text-xs lp-text-muted">datasynth.co.uk</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="lp-badge lp-badge-blue">Analytics</span></td>
+                  <td>UK · London</td>
+                  <td><span class="lp-score-badge score-A" aria-label="AI score 88, grade A">88</span></td>
+                  <td>
+                    <div style="font-size:12px;font-weight:500">Emma Wilson</div>
+                    <div class="lp-text-xs lp-text-muted">hello@datasynth.co.uk</div>
+                  </td>
+                  <td><span class="lp-badge status-contacted">Contacted</span></td>
+                  <td class="lp-text-muted lp-text-xs"><time datetime="2025-01-08">Jan 8, 2025</time></td>
+                  <td class="col-actions">
+                    <div class="lp-flex lp-gap-2">
+                      <button type="button" class="btn btn-secondary btn-sm" data-action="analyze-lead" data-lead-id="5" aria-label="Analyze DataSynth Ltd">Score</button>
+                      <button type="button" class="btn btn-secondary btn-sm" data-action="generate-email" data-lead-id="5" aria-label="Generate email for DataSynth">Email</button>
+                      <div class="lp-dropdown" id="lead-menu-5">
+                        <button type="button" class="btn btn-ghost btn-sm btn-icon" data-dropdown="lead-menu-5-dd" aria-haspopup="true" aria-expanded="false" aria-label="More actions for DataSynth">•••</button>
+                        <div class="lp-dropdown-menu" id="lead-menu-5-dd" role="menu">
+                          <button type="button" class="lp-dropdown-item" role="menuitem" data-action="edit-lead" data-lead-id="5">Edit</button>
+                          <button type="button" class="lp-dropdown-item" role="menuitem" data-action="add-to-campaign" data-lead-id="5">Add to Campaign</button>
+                          <div class="lp-dropdown-divider"></div>
+                          <button type="button" class="lp-dropdown-item danger" role="menuitem" data-action="delete-lead" data-lead-id="5">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Row 6 -->
+                <tr data-lead-id="6" data-company="MarketEdge" data-industry="Marketing" data-country="Poland" data-score="61" data-status="new">
+                  <td class="col-check" style="padding-left:16px"><input type="checkbox" class="lp-checkbox lead-row-check" data-lead-id="6" aria-label="Select MarketEdge" /></td>
+                  <td>
+                    <div class="lp-flex-center lp-gap-2">
+                      <div class="lp-avatar" style="width:28px;height:28px;font-size:10px;background:var(--orange)" aria-hidden="true">M</div>
+                      <div>
+                        <div style="font-weight:600;font-size:13px;color:var(--gray-900)">MarketEdge</div>
+                        <div class="lp-text-xs lp-text-muted">marketedge.pl</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="lp-badge lp-badge-orange">Marketing</span></td>
+                  <td>Poland · Warsaw</td>
+                  <td><span class="lp-score-badge score-B" aria-label="AI score 61, grade B">61</span></td>
+                  <td>
+                    <div style="font-size:12px;font-weight:500">Anna Kowalski</div>
+                    <div class="lp-text-xs lp-text-muted">hi@marketedge.pl</div>
+                  </td>
+                  <td><span class="lp-badge status-new">New</span></td>
+                  <td class="lp-text-muted lp-text-xs"><time datetime="2025-01-14">Jan 14, 2025</time></td>
+                  <td class="col-actions">
+                    <div class="lp-flex lp-gap-2">
+                      <button type="button" class="btn btn-secondary btn-sm" data-action="analyze-lead" data-lead-id="6" aria-label="Analyze MarketEdge">Score</button>
+                      <button type="button" class="btn btn-secondary btn-sm" data-action="generate-email" data-lead-id="6" aria-label="Generate email for MarketEdge">Email</button>
+                      <div class="lp-dropdown" id="lead-menu-6">
+                        <button type="button" class="btn btn-ghost btn-sm btn-icon" data-dropdown="lead-menu-6-dd" aria-haspopup="true" aria-expanded="false" aria-label="More actions for MarketEdge">•••</button>
+                        <div class="lp-dropdown-menu" id="lead-menu-6-dd" role="menu">
+                          <button type="button" class="lp-dropdown-item" role="menuitem" data-action="edit-lead" data-lead-id="6">Edit</button>
+                          <button type="button" class="lp-dropdown-item" role="menuitem" data-action="add-to-campaign" data-lead-id="6">Add to Campaign</button>
+                          <div class="lp-dropdown-divider"></div>
+                          <button type="button" class="lp-dropdown-item danger" role="menuitem" data-action="delete-lead" data-lead-id="6">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Row 7 -->
+                <tr data-lead-id="7" data-company="EcoShip BV" data-industry="Logistics" data-country="Netherlands" data-score="55" data-status="rejected">
+                  <td class="col-check" style="padding-left:16px"><input type="checkbox" class="lp-checkbox lead-row-check" data-lead-id="7" aria-label="Select EcoShip BV" /></td>
+                  <td>
+                    <div class="lp-flex-center lp-gap-2">
+                      <div class="lp-avatar" style="width:28px;height:28px;font-size:10px;background:var(--green)" aria-hidden="true">E</div>
+                      <div>
+                        <div style="font-weight:600;font-size:13px;color:var(--gray-900)">EcoShip BV</div>
+                        <div class="lp-text-xs lp-text-muted">ecoship.nl</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="lp-badge lp-badge-cyan">Logistics</span></td>
+                  <td>Netherlands · Amsterdam</td>
+                  <td><span class="lp-score-badge score-C" aria-label="AI score 55, grade C">55</span></td>
+                  <td>
+                    <div style="font-size:12px;font-weight:500">Jan de Vries</div>
+                    <div class="lp-text-xs lp-text-muted">info@ecoship.nl</div>
+                  </td>
+                  <td><span class="lp-badge status-rejected">Rejected</span></td>
+                  <td class="lp-text-muted lp-text-xs"><time datetime="2024-11-30">Nov 30, 2024</time></td>
+                  <td class="col-actions">
+                    <div class="lp-flex lp-gap-2">
+                      <button type="button" class="btn btn-secondary btn-sm" data-action="analyze-lead" data-lead-id="7" aria-label="Analyze EcoShip BV">Score</button>
+                      <button type="button" class="btn btn-secondary btn-sm" data-action="generate-email" data-lead-id="7" aria-label="Generate email for EcoShip">Email</button>
+                      <div class="lp-dropdown" id="lead-menu-7">
+                        <button type="button" class="btn btn-ghost btn-sm btn-icon" data-dropdown="lead-menu-7-dd" aria-haspopup="true" aria-expanded="false" aria-label="More actions for EcoShip">•••</button>
+                        <div class="lp-dropdown-menu" id="lead-menu-7-dd" role="menu">
+                          <button type="button" class="lp-dropdown-item" role="menuitem" data-action="edit-lead" data-lead-id="7">Edit</button>
+                          <button type="button" class="lp-dropdown-item" role="menuitem" data-action="add-to-campaign" data-lead-id="7">Add to Campaign</button>
+                          <div class="lp-dropdown-divider"></div>
+                          <button type="button" class="lp-dropdown-item danger" role="menuitem" data-action="delete-lead" data-lead-id="7">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Row 8 -->
+                <tr data-lead-id="8" data-company="GrowthBox SRL" data-industry="Consulting" data-country="Romania" data-score="70" data-status="new">
+                  <td class="col-check" style="padding-left:16px"><input type="checkbox" class="lp-checkbox lead-row-check" data-lead-id="8" aria-label="Select GrowthBox SRL" /></td>
+                  <td>
+                    <div class="lp-flex-center lp-gap-2">
+                      <div class="lp-avatar" style="width:28px;height:28px;font-size:10px;background:#DC2626" aria-hidden="true">G</div>
+                      <div>
+                        <div style="font-weight:600;font-size:13px;color:var(--gray-900)">GrowthBox SRL</div>
+                        <div class="lp-text-xs lp-text-muted">growthbox.ro</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="lp-badge lp-badge-yellow">Consulting</span></td>
+                  <td>Romania · Bucharest</td>
+                  <td><span class="lp-score-badge score-B" aria-label="AI score 70, grade B">70</span></td>
+                  <td>
+                    <div style="font-size:12px;font-weight:500">Ion Popescu</div>
+                    <div class="lp-text-xs lp-text-muted">contact@growthbox.ro</div>
+                  </td>
+                  <td><span class="lp-badge status-new">New</span></td>
+                  <td class="lp-text-muted lp-text-xs"><time datetime="2025-01-12">Jan 12, 2025</time></td>
+                  <td class="col-actions">
+                    <div class="lp-flex lp-gap-2">
+                      <button type="button" class="btn btn-secondary btn-sm" data-action="analyze-lead" data-lead-id="8" aria-label="Analyze GrowthBox SRL">Score</button>
+                      <button type="button" class="btn btn-secondary btn-sm" data-action="generate-email" data-lead-id="8" aria-label="Generate email for GrowthBox">Email</button>
+                      <div class="lp-dropdown" id="lead-menu-8">
+                        <button type="button" class="btn btn-ghost btn-sm btn-icon" data-dropdown="lead-menu-8-dd" aria-haspopup="true" aria-expanded="false" aria-label="More actions for GrowthBox">•••</button>
+                        <div class="lp-dropdown-menu" id="lead-menu-8-dd" role="menu">
+                          <button type="button" class="lp-dropdown-item" role="menuitem" data-action="edit-lead" data-lead-id="8">Edit</button>
+                          <button type="button" class="lp-dropdown-item" role="menuitem" data-action="add-to-campaign" data-lead-id="8">Add to Campaign</button>
+                          <div class="lp-dropdown-divider"></div>
+                          <button type="button" class="lp-dropdown-item danger" role="menuitem" data-action="delete-lead" data-lead-id="8">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div><!-- /table-wrap -->
+
+          <!-- Pagination -->
+          <div class="lp-pagination" id="leads-pagination">
+            <span>Page <strong id="current-page">1</strong> of <strong id="total-pages">161</strong></span>
+            <div class="lp-pagination-btns" role="navigation" aria-label="Pagination">
+              <button type="button" class="lp-page-btn" id="btn-prev-page" data-action="prev-page" aria-label="Previous page" disabled>←</button>
+              <button type="button" class="lp-page-btn active" data-page-num="1" aria-current="page">1</button>
+              <button type="button" class="lp-page-btn" data-page-num="2">2</button>
+              <button type="button" class="lp-page-btn" data-page-num="3">3</button>
+              <span style="padding:0 4px;align-self:center;color:var(--gray-400)">…</span>
+              <button type="button" class="lp-page-btn" data-page-num="161">161</button>
+              <button type="button" class="lp-page-btn" id="btn-next-page" data-action="next-page" aria-label="Next page">→</button>
+            </div>
+          </div>
+        </div><!-- /leads-table-card -->
+
+      </section><!-- /page-leads -->
+
+
+      <!-- ======================================================
+           PAGE: AI SEARCH
+           data-page="ai-search"
+           ====================================================== -->
+      <section id="page-ai-search" class="lp-page" data-page="ai-search" aria-labelledby="page-ai-search-title">
+
+        <div class="lp-page-header">
+          <div>
+            <h1 class="lp-page-title" id="page-ai-search-title">AI Lead Scoring</h1>
+            <p class="lp-page-desc">Instantly analyze any company or lead with our AI engine.</p>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+
+          <!-- Input panel -->
+          <div class="lp-card">
+            <div class="lp-card-header">
+              <h2 class="lp-card-title">Analyze Lead</h2>
+              <span class="lp-badge lp-badge-purple">✨ AI-Powered</span>
+            </div>
+
+            <form id="ai-score-form" name="ai-score" novalidate>
+              <div class="lp-form-group">
+                <label class="lp-label" for="ai-company-name">Company Name <span aria-hidden="true" style="color:var(--red)">*</span></label>
+                <input type="text" id="ai-company-name" name="company-name" class="lp-input" placeholder="e.g. TechScale GmbH" required maxlength="100" data-field="company-name" />
+                <div class="lp-field-error" id="ai-company-name-error" role="alert" hidden></div>
+              </div>
+              <div class="lp-form-row">
+                <div class="lp-form-group">
+                  <label class="lp-label" for="ai-industry">Industry</label>
+                  <select id="ai-industry" name="industry" class="lp-input lp-select" data-field="industry">
+                    <option value="">Select industry</option>
+                    <option value="SaaS">SaaS</option>
+                    <option value="Logistics">Logistics</option>
+                    <option value="Fintech">Fintech</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Manufacturing">Manufacturing</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Consulting">Consulting</option>
+                    <option value="E-commerce">E-commerce</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div class="lp-form-group">
+                  <label class="lp-label" for="ai-employees">Employees</label>
+                  <select id="ai-employees" name="employees" class="lp-input lp-select" data-field="employees">
+                    <option value="">Unknown</option>
+                    <option value="1-10">1–10</option>
+                    <option value="11-50">11–50</option>
+                    <option value="51-200">51–200</option>
+                    <option value="201-1000">201–1000</option>
+                    <option value="1000+">1000+</option>
+                  </select>
+                </div>
+              </div>
+              <div class="lp-form-group">
+                <label class="lp-label" for="ai-website">Website URL</label>
+                <input type="url" id="ai-website" name="website" class="lp-input" placeholder="https://company.com" data-field="website" />
+              </div>
+              <div class="lp-form-group">
+                <label class="lp-label" for="ai-context">Additional Context</label>
+                <textarea id="ai-context" name="context" class="lp-input" placeholder="Any extra information about this lead…" rows="3" data-field="context"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg btn-full" id="btn-ai-analyze" data-action="run-ai-score" aria-busy="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                Analyze Lead
+              </button>
+            </form>
+
+            <!-- Thinking indicator (hidden by default) -->
+            <div class="ai-thinking" id="ai-thinking-indicator" hidden aria-live="polite" aria-label="AI is analyzing">
+              <span class="ai-dot"></span>
+              <span class="ai-dot"></span>
+              <span class="ai-dot"></span>
+              <span>AI is analyzing this company…</span>
+            </div>
+          </div>
+
+          <!-- Results panel -->
+          <div class="lp-card" id="ai-score-results" aria-live="polite" aria-label="AI scoring results">
+            <div class="lp-card-header">
+              <h2 class="lp-card-title">Analysis Results</h2>
+              <button type="button" class="btn btn-ghost btn-sm" id="btn-save-ai-result" data-action="save-ai-result" hidden aria-label="Save this score to lead">Save</button>
+            </div>
+
+            <!-- Placeholder (shown before analysis) -->
+            <div id="ai-score-placeholder" class="lp-empty">
+              <div class="lp-empty-icon" aria-hidden="true">🤖</div>
+              <div class="lp-empty-title">No analysis yet</div>
+              <div class="lp-empty-desc">Fill in the company details and click "Analyze Lead" to generate an AI score.</div>
+            </div>
+
+            <!-- Results (shown after analysis, hidden initially) -->
+            <div id="ai-score-output" hidden>
+              <!-- Score ring -->
+              <div class="ai-score-ring-wrap">
+                <div style="text-align:center">
+                  <div class="ai-score-num" id="ai-result-score" aria-label="AI Score">—</div>
+                  <div class="ai-score-label">Overall AI Score</div>
+                </div>
+              </div>
+
+              <!-- Metric grid -->
+              <div class="ai-metric-grid" id="ai-metric-grid">
+
+                <div class="ai-metric" id="ai-metric-reply">
+                  <div class="ai-metric-label">Reply Probability</div>
+                  <div class="ai-metric-val" id="ai-reply-pct">—</div>
+                  <div class="ai-metric-sub" id="ai-reply-label">—</div>
+                  <div class="ai-meter"><div class="ai-meter-fill" id="ai-reply-meter" style="width:0%;background:var(--green)"></div></div>
+                </div>
+
+                <div class="ai-metric" id="ai-metric-interest">
+                  <div class="ai-metric-label">Customer Interest</div>
+                  <div class="ai-metric-val" id="ai-interest-val">—</div>
+                  <div class="ai-metric-sub" id="ai-interest-label">—</div>
+                  <div class="ai-meter"><div class="ai-meter-fill" id="ai-interest-meter" style="width:0%;background:var(--blue)"></div></div>
+                </div>
+
+                <div class="ai-metric" id="ai-metric-budget">
+                  <div class="ai-metric-label">Budget Potential</div>
+                  <div class="ai-metric-val" id="ai-budget-val">—</div>
+                  <div class="ai-metric-sub" id="ai-budget-label">—</div>
+                  <div class="ai-meter"><div class="ai-meter-fill" id="ai-budget-meter" style="width:0%;background:var(--purple)"></div></div>
+                </div>
+
+                <div class="ai-metric" id="ai-metric-timing">
+                  <div class="ai-metric-label">Timing</div>
+                  <div class="ai-metric-val" id="ai-timing-val">—</div>
+                  <div class="ai-metric-sub" id="ai-timing-label">—</div>
+                  <div class="ai-meter"><div class="ai-meter-fill" id="ai-timing-meter" style="width:0%;background:var(--yellow)"></div></div>
+                </div>
+
+              </div><!-- /ai-metric-grid -->
+
+              <!-- Recommended next action -->
+              <div class="ai-next-action" id="ai-next-action">
+                <div style="font-size:11px;font-weight:600;color:var(--blue);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.07em">✨ Recommended Next Action</div>
+                <div id="ai-next-action-text" style="font-size:13px;color:var(--gray-700)">—</div>
+              </div>
+
+              <!-- Action buttons -->
+              <div class="lp-flex lp-gap-2 lp-mt-3">
+                <button type="button" class="btn btn-primary" id="btn-generate-from-score" data-action="generate-email-from-score" style="flex:1">Generate Email</button>
+                <button type="button" class="btn btn-secondary" id="btn-add-to-campaign-from-score" data-action="add-scored-to-campaign" style="flex:1">Add to Campaign</button>
+              </div>
+
+            </div><!-- /ai-score-output -->
+
+          </div><!-- /ai-score-results -->
+        </div><!-- /grid -->
+
+        <!-- Score history placeholder -->
+        <div class="lp-card lp-mt-4" id="ai-score-history">
+          <div class="lp-card-header">
+            <h2 class="lp-card-title">Recent Analyses</h2>
+            <button type="button" class="btn btn-ghost btn-sm" data-action="clear-score-history">Clear history</button>
+          </div>
+          <div id="ai-score-history-list" aria-label="Score history" role="list">
+            <div class="lp-empty">
+              <div class="lp-empty-icon" aria-hidden="true">📋</div>
+              <div class="lp-empty-title">No recent analyses</div>
+              <div class="lp-empty-desc">Analyzed leads will appear here.</div>
+            </div>
+          </div>
+        </div>
+
+      </section><!-- /page-ai-search -->
+
+
+      <!-- ======================================================
+           PAGE: AI EMAIL GENERATOR
+           data-page="email-gen"
+           ====================================================== -->
+      <section id="page-email-gen" class="lp-page" data-page="email-gen" aria-labelledby="page-email-gen-title">
+
+        <div class="lp-page-header">
+          <div>
+            <h1 class="lp-page-title" id="page-email-gen-title">AI Email Generator</h1>
+            <p class="lp-page-desc">Generate hyper-personalized cold emails in seconds.</p>
+          </div>
+        </div>
+
+        <div class="email-gen-layout">
+
+          <!-- Configuration panel -->
+          <div class="lp-card" id="email-gen-config">
+            <div class="lp-card-header">
+              <h2 class="lp-card-title">Email Configuration</h2>
+            </div>
+
+            <form id="email-gen-form" name="email-generator" novalidate>
+              <div class="lp-form-group">
+                <label class="lp-label" for="eg-company">Company Name <span aria-hidden="true" style="color:var(--red)">*</span></label>
+                <input type="text" id="eg-company" name="company" class="lp-input" placeholder="e.g. TechScale GmbH" required maxlength="100" data-field="company" />
+                <div class="lp-field-error" id="eg-company-error" role="alert" hidden></div>
+              </div>
+
+              <div class="lp-form-row">
+                <div class="lp-form-group">
+                  <label class="lp-label" for="eg-industry">Industry <span aria-hidden="true" style="color:var(--red)">*</span></label>
+                  <select id="eg-industry" name="industry" class="lp-input lp-select" required data-field="industry">
+                    <option value="">Select…</option>
+                    <option value="SaaS">SaaS</option>
+                    <option value="Logistics">Logistics</option>
+                    <option value="Fintech">Fintech</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="E-commerce">E-commerce</option>
+                    <option value="Manufacturing">Manufacturing</option>
+                    <option value="Consulting">Consulting</option>
+                    <option value="Marketing">Marketing</option>
+                  </select>
+                </div>
+                <div class="lp-form-group">
+                  <label class="lp-label" for="eg-tone">Email Tone</label>
+                  <select id="eg-tone" name="tone" class="lp-input lp-select" data-field="tone">
+                    <option value="professional">Professional</option>
+                    <option value="friendly">Friendly</option>
+                    <option value="direct">Direct</option>
+                    <option value="casual">Casual</option>
+                    <option value="formal">Formal</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="lp-form-group">
+                <label class="lp-label" for="eg-pain-point">Customer Pain Point <span aria-hidden="true" style="color:var(--red)">*</span></label>
+                <input type="text" id="eg-pain-point" name="pain-point" class="lp-input" placeholder="e.g. Low outbound reply rates, manual lead research…" required data-field="pain-point" />
+                <div class="lp-field-error" id="eg-pain-error" role="alert" hidden></div>
+              </div>
+
+              <div class="lp-form-group">
+                <label class="lp-label" for="eg-goal">Campaign Goal</label>
+                <select id="eg-goal" name="goal" class="lp-input lp-select" data-field="goal">
+                  <option value="book-call">Book a discovery call</option>
+                  <option value="demo">Schedule a product demo</option>
+                  <option value="partnership">Explore partnership</option>
+                  <option value="feedback">Get feedback</option>
+                  <option value="referral">Request referral</option>
+                </select>
+              </div>
+
+              <div class="lp-form-row">
+                <div class="lp-form-group">
+                  <label class="lp-label" for="eg-length">Email Length</label>
+                  <select id="eg-length" name="length" class="lp-input lp-select" data-field="length">
+                    <option value="short">Short (3–4 lines)</option>
+                    <option value="medium" selected>Medium (5–7 lines)</option>
+                    <option value="long">Long (8–12 lines)</option>
+                  </select>
+                </div>
+                <div class="lp-form-group">
+                  <label class="lp-label" for="eg-language">Language</label>
+                  <select id="eg-language" name="language" class="lp-input lp-select" data-field="language">
+                    <option value="en">English</option>
+                    <option value="de">German</option>
+                    <option value="cs">Czech</option>
+                    <option value="ru">Russian</option>
+                    <option value="pl">Polish</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="lp-form-group">
+                <label class="lp-label" for="eg-contact-name">Contact Person</label>
+                <input type="text" id="eg-contact-name" name="contact-name" class="lp-input" placeholder="e.g. Klaus Weber (leave empty to omit)" data-field="contact-name" maxlength="60" />
+              </div>
+
+              <div class="lp-flex lp-gap-2">
+                <button type="submit" class="btn btn-primary btn-lg" id="btn-generate-email" data-action="run-email-gen" style="flex:1" aria-busy="false">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                  Generate Email
+                </button>
+                <button type="button" class="btn btn-secondary btn-lg" id="btn-regenerate-email" data-action="regenerate-email" aria-label="Regenerate email" hidden>
+                  ↺ Regenerate
+                </button>
+              </div>
+
+            </form><!-- /email-gen-form -->
+          </div><!-- /email-gen-config -->
+
+          <!-- Output panel -->
+          <div class="lp-col" style="gap:14px">
+
+            <!-- Email type switcher tabs -->
+            <div class="email-type-tabs" id="email-type-tabs" role="tablist" aria-label="Email type">
+              <button type="button" class="email-type-tab active" role="tab" aria-selected="true" data-email-type="cold" id="etab-cold" aria-controls="email-output-area">Cold Email</button>
+              <button type="button" class="email-type-tab" role="tab" aria-selected="false" data-email-type="followup1" id="etab-fu1" aria-controls="email-output-area">Follow-up #1</button>
+              <button type="button" class="email-type-tab" role="tab" aria-selected="false" data-email-type="followup2" id="etab-fu2" aria-controls="email-output-area">Follow-up #2</button>
+              <button type="button" class="email-type-tab" role="tab" aria-selected="false" data-email-type="linkedin" id="etab-li" aria-controls="email-output-area">LinkedIn</button>
+            </div>
+
+            <!-- Subject line -->
+            <div class="email-subject-line" id="email-subject-output" aria-label="Generated subject line" aria-live="polite" hidden>
+              Subject: <span id="email-subject-text">—</span>
+            </div>
+
+            <!-- Email body preview -->
+            <div class="email-preview" id="email-output-area" role="tabpanel" aria-live="polite" aria-label="Generated email">
+              <div class="email-preview-placeholder" id="email-preview-placeholder">
+                <span aria-hidden="true" style="font-size:32px">✉️</span>
+                <span>Your generated email will appear here.</span>
+                <span class="lp-text-xs">Fill in the form and click Generate Email.</span>
+              </div>
+              <div id="email-body-text" hidden></div>
+
+              <!-- Copy button (inside preview) -->
+              <button type="button" class="btn btn-secondary btn-sm email-copy-btn" id="btn-copy-email" data-action="copy-email" aria-label="Copy email to clipboard" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy
+              </button>
+            </div>
+
+            <!-- Action row -->
+            <div class="lp-flex lp-gap-2" id="email-actions" hidden>
+              <button type="button" class="btn btn-secondary" id="btn-save-email-draft" data-action="save-email-draft" style="flex:1">Save as Draft</button>
+              <button type="button" class="btn btn-primary" id="btn-add-email-to-campaign" data-action="add-email-to-campaign" style="flex:1">Add to Campaign →</button>
+            </div>
+
+            <!-- Email history -->
+            <div class="lp-card" id="email-gen-history" style="padding:16px">
+              <h3 style="font-size:13px;font-weight:600;margin-bottom:12px">Generation History</h3>
+              <div id="email-gen-history-list" aria-label="Email generation history" role="list">
+                <div class="lp-text-xs lp-text-muted" style="padding:8px 0">No emails generated yet.</div>
+              </div>
+            </div>
+
+          </div><!-- /output col -->
+        </div><!-- /email-gen-layout -->
+
+      </section><!-- /page-email-gen -->
+
+
+      <!-- ======================================================
+           PAGE: CAMPAIGNS
+           data-page="campaigns"
+           ====================================================== -->
+      <section id="page-campaigns" class="lp-page" data-page="campaigns" aria-labelledby="page-campaigns-title">
+
+        <div class="lp-page-header">
+          <div>
+            <h1 class="lp-page-title" id="page-campaigns-title">Campaigns</h1>
+            <p class="lp-page-desc">Create, manage and track all your outreach campaigns.</p>
+          </div>
+          <div class="lp-page-actions">
+            <button type="button" class="btn btn-primary" id="btn-new-campaign" data-action="open-new-campaign-modal" aria-label="Create a new campaign">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              New Campaign
+            </button>
+          </div>
+        </div>
+
+        <!-- Campaign Cards -->
+        <div id="campaigns-list" aria-label="Campaign list">
+
+          <!-- Campaign 1 -->
+          <article class="campaign-card" id="campaign-1" data-campaign-id="1" data-status="active">
+            <div class="campaign-card-header">
+              <div class="campaign-icon" style="background:var(--blue-light)" aria-hidden="true">⚡</div>
+              <div style="flex:1;min-width:0">
+                <div class="lp-between">
+                  <div>
+                    <div style="font-size:14px;font-weight:600;color:var(--gray-900)">Germany SaaS Q1</div>
+                    <div class="lp-text-xs lp-text-muted">145 leads · Created Jan 10, 2025</div>
+                  </div>
+                  <div class="lp-flex lp-gap-2">
+                    <span class="lp-badge lp-badge-green" role="status">Active</span>
+                    <button type="button" class="btn btn-secondary btn-sm" data-action="view-campaign" data-campaign-id="1" aria-label="View Germany SaaS Q1 details">View</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-action="pause-campaign" data-campaign-id="1" aria-label="Pause Germany SaaS Q1">Pause</button>
+                    <button type="button" class="btn btn-danger btn-sm" data-action="delete-campaign" data-campaign-id="1" aria-label="Delete Germany SaaS Q1">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="campaign-card-metrics" role="list" aria-label="Campaign metrics">
+              <div class="campaign-metric" role="listitem">
+                <div class="campaign-metric-val">89</div>
+                <div class="campaign-metric-lbl">Emails Sent</div>
+                <div class="campaign-metric-bar"><div class="campaign-metric-fill" style="width:61%;background:var(--blue)"></div></div>
+              </div>
+              <div class="campaign-metric" role="listitem">
+                <div class="campaign-metric-val">75%</div>
+                <div class="campaign-metric-lbl">Open Rate</div>
+                <div class="campaign-metric-bar"><div class="campaign-metric-fill" style="width:75%;background:var(--cyan)"></div></div>
+              </div>
+              <div class="campaign-metric" role="listitem">
+                <div class="campaign-metric-val">34.8%</div>
+                <div class="campaign-metric-lbl">Reply Rate</div>
+                <div class="campaign-metric-bar"><div class="campaign-metric-fill" style="width:35%;background:var(--green)"></div></div>
+              </div>
+              <div class="campaign-metric" role="listitem">
+                <div class="campaign-metric-val">8</div>
+                <div class="campaign-metric-lbl">Meetings</div>
+                <div class="campaign-metric-bar"><div class="campaign-metric-fill" style="width:28%;background:var(--purple)"></div></div>
+              </div>
+              <div class="campaign-metric" role="listitem">
+                <div class="campaign-metric-val">2.1%</div>
+                <div class="campaign-metric-lbl">Conversion</div>
+                <div class="campaign-metric-bar"><div class="campaign-metric-fill" style="width:8%;background:var(--yellow)"></div></div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Campaign 2 -->
+          <article class="campaign-card" id="campaign-2" data-campaign-id="2" data-status="paused">
+            <div class="campaign-card-header">
+              <div class="campaign-icon" style="background:var(--yellow-light)" aria-hidden="true">📦</div>
+              <div style="flex:1;min-width:0">
+                <div class="lp-between">
+                  <div>
+                    <div style="font-size:14px;font-weight:600;color:var(--gray-900)">Prague Logistics</div>
+                    <div class="lp-text-xs lp-text-muted">52 leads · Created Jan 5, 2025</div>
+                  </div>
+                  <div class="lp-flex lp-gap-2">
+                    <span class="lp-badge lp-badge-yellow" role="status">Paused</span>
+                    <button type="button" class="btn btn-secondary btn-sm" data-action="view-campaign" data-campaign-id="2">View</button>
+                    <button type="button" class="btn btn-primary btn-sm" data-action="resume-campaign" data-campaign-id="2" aria-label="Resume Prague Logistics">Resume</button>
+                    <button type="button" class="btn btn-danger btn-sm" data-action="delete-campaign" data-campaign-id="2" aria-label="Delete Prague Logistics">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="campaign-card-metrics" role="list" aria-label="Campaign metrics">
+              <div class="campaign-metric" role="listitem"><div class="campaign-metric-val">52</div><div class="campaign-metric-lbl">Emails Sent</div><div class="campaign-metric-bar"><div class="campaign-metric-fill" style="width:100%;background:var(--blue)"></div></div></div>
+              <div class="campaign-metric" role="listitem"><div class="campaign-metric-val">65%</div><div class="campaign-metric-lbl">Open Rate</div><div class="campaign-metric-bar"><div class="campaign-metric-fill" style="width:65%;background:var(--cyan)"></div></div></div>
+              <div class="campaign-metric" role="listitem"><div class="campaign-metric-val">23%</div><div class="campaign-metric-lbl">Reply Rate</div><div class="campaign-metric-bar"><div class="campaign-metric-fill" style="width:23%;background:var(--green)"></div></div></div>
+              <div class="campaign-metric" role="listitem"><div class="campaign-metric-val">3</div><div class="campaign-metric-lbl">Meetings</div><div class="campaign-metric-bar"><div class="campaign-metric-fill" style="width:15%;background:var(--purple)"></div></div></div>
+              <div class="campaign-metric" role="listitem"><div class="campaign-metric-val">1.4%</div><div class="campaign-metric-lbl">Conversion</div><div class="campaign-metric-bar"><div class="campaign-metric-fill" style="width:5%;background:var(--yellow)"></div></div></div>
+            </div>
+          </article>
+
+          <!-- Campaign 3 -->
+          <article class="campaign-card" id="campaign-3" data-campaign-id="3" data-status="draft">
+            <div class="campaign-card-header">
+              <div class="campaign-icon" style="background:var(--gray-100)" aria-hidden="true">📝</div>
+              <div style="flex:1;min-width:0">
+                <div class="lp-between">
+                  <div>
+                    <div style="font-size:14px;font-weight:600;color:var(--gray-900)">UK Fintech</div>
+                    <div class="lp-text-xs lp-text-muted">78 leads · Created Jan 15, 2025</div>
+                  </div>
+                  <div class="lp-flex lp-gap-2">
+                    <span class="lp-badge lp-badge-gray" role="status">Draft</span>
+                    <button type="button" class="btn btn-secondary btn-sm" data-action="view-campaign" data-campaign-id="3">Open</button>
+                    <button type="button" class="btn btn-primary btn-sm" data-action="launch-campaign" data-campaign-id="3" aria-label="Launch UK Fintech campaign">Launch</button>
+                    <button type="button" class="btn btn-danger btn-sm" data-action="delete-campaign" data-campaign-id="3" aria-label="Delete UK Fintech draft">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="campaign-card-metrics" role="list" aria-label="Campaign metrics — not sent yet">
+              <div class="campaign-metric" role="listitem"><div class="campaign-metric-val lp-text-muted">0</div><div class="campaign-metric-lbl">Emails Sent</div><div class="campaign-metric-bar"></div></div>
+              <div class="campaign-metric" role="listitem"><div class="campaign-metric-val lp-text-muted">—</div><div class="campaign-metric-lbl">Open Rate</div><div class="campaign-metric-bar"></div></div>
+              <div class="campaign-metric" role="listitem"><div class="campaign-metric-val lp-text-muted">—</div><div class="campaign-metric-lbl">Reply Rate</div><div class="campaign-metric-bar"></div></div>
+              <div class="campaign-metric" role="listitem"><div class="campaign-metric-val lp-text-muted">—</div><div class="campaign-metric-lbl">Meetings</div><div class="campaign-metric-bar"></div></div>
+              <div class="campaign-metric" role="listitem"><div class="campaign-metric-val lp-text-muted">—</div><div class="campaign-metric-lbl">Conversion</div><div class="campaign-metric-bar"></div></div>
+            </div>
+          </article>
+
+          <!-- Campaign 4 -->
+          <article class="campaign-card" id="campaign-4" data-campaign-id="4" data-status="completed">
+            <div class="campaign-card-header">
+              <div class="campaign-icon" style="background:var(--green-light)" aria-hidden="true">✅</div>
+              <div style="flex:1;min-width:0">
+                <div class="lp-between">
+                  <div>
+                    <div style="font-size:14px;font-weight:600;color:var(--gray-900)">EU E-commerce Outreach</div>
+                    <div class="lp-text-xs lp-text-muted">200 leads · Created Dec 1, 2024</div>
+                  </div>
+                  <div class="lp-flex lp-gap-2">
+                    <span class="lp-badge lp-badge-blue" role="status">Completed</span>
+                    <button type="button" class="btn btn-secondary btn-sm" data-action="view-campaign" data-campaign-id="4">View Report</button>
+                    <button type="button" class="btn btn-danger btn-sm" data-action="delete-campaign" data-campaign-id="4" aria-label="Delete EU E-commerce campaign">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="campaign-card-metrics" role="list" aria-label="Campaign metrics">
+              <div class="campaign-metric" role="listitem"><div class="campaign-metric-val">200</div><div class="campaign-metric-lbl">Emails Sent</div><div class="campaign-metric-bar"><div class="campaign-metric-fill" style="width:100%;background:var(--blue)"></div></div></div>
+              <div class="campaign-metric" role="listitem"><div class="campaign-metric-val">81%</div><div class="campaign-metric-lbl">Open Rate</div><div class="campaign-metric-bar"><div class="campaign-metric-fill" style="width:81%;background:var(--cyan)"></div></div></div>
+              <div class="campaign-metric" role="listitem"><div class="campaign-metric-val">29%</div><div class="campaign-metric-lbl">Reply Rate</div><div class="campaign-metric-bar"><div class="campaign-metric-fill" style="width:29%;background:var(--green)"></div></div></div>
+              <div class="campaign-metric" role="listitem"><div class="campaign-metric-val">19</div><div class="campaign-metric-lbl">Meetings</div><div class="campaign-metric-bar"><div class="campaign-metric-fill" style="width:40%;background:var(--purple)"></div></div></div>
+              <div class="campaign-metric" role="listitem"><div class="campaign-metric-val">4.5%</div><div class="campaign-metric-lbl">Conversion</div><div class="campaign-metric-bar"><div class="campaign-metric-fill" style="width:18%;background:var(--yellow)"></div></div></div>
+            </div>
+          </article>
+
+        </div><!-- /campaigns-list -->
+      </section><!-- /page-campaigns -->
+
+
+      <!-- ======================================================
+           PAGE: ANALYTICS
+           data-page="analytics"
+           ====================================================== -->
+      <section id="page-analytics" class="lp-page" data-page="analytics" aria-labelledby="page-analytics-title">
+        <div class="lp-page-header">
+          <div>
+            <h1 class="lp-page-title" id="page-analytics-title">Analytics</h1>
+            <p class="lp-page-desc">Track performance across all your campaigns and leads.</p>
+          </div>
+          <div class="lp-page-actions">
+            <select id="analytics-date-range" name="analytics-range" class="lp-input lp-select" style="width:160px" data-action="change-analytics-range" aria-label="Select date range">
+              <option value="7d">Last 7 days</option>
+              <option value="30d" selected>Last 30 days</option>
+              <option value="90d">Last 90 days</option>
+              <option value="1y">Last 12 months</option>
+            </select>
+            <button type="button" class="btn btn-secondary" data-action="export-analytics">↓ Export</button>
+          </div>
+        </div>
+
+        <!-- Analytics chart placeholders -->
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px">
+          <div class="lp-card">
+            <div class="lp-card-header"><h2 class="lp-card-title">Lead Growth Over Time</h2><span class="lp-badge lp-badge-blue" id="analytics-leads-total">+250%</span></div>
+            <div class="chart-placeholder" id="analytics-chart-leads" data-chart="area" style="height:200px;background:var(--gray-50);border-radius:var(--r);display:flex;align-items:center;justify-content:center;color:var(--gray-300);font-size:12px" aria-hidden="true">Chart renders here</div>
+          </div>
+          <div class="lp-card">
+            <div class="lp-card-header"><h2 class="lp-card-title">Lead Score Distribution</h2></div>
+            <div class="chart-placeholder" id="analytics-chart-scores" data-chart="donut" style="height:200px;background:var(--gray-50);border-radius:var(--r);display:flex;align-items:center;justify-content:center;color:var(--gray-300);font-size:12px" aria-hidden="true">Chart renders here</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div class="lp-card">
+            <div class="lp-card-header"><h2 class="lp-card-title">Email Open Rate Trend</h2></div>
+            <div class="chart-placeholder" id="analytics-chart-email-trend" data-chart="line" style="height:160px;background:var(--gray-50);border-radius:var(--r);display:flex;align-items:center;justify-content:center;color:var(--gray-300);font-size:12px" aria-hidden="true">Chart renders here</div>
+          </div>
+          <div class="lp-card">
+            <div class="lp-card-header"><h2 class="lp-card-title">Campaign Comparison</h2></div>
+            <div class="chart-placeholder" id="analytics-chart-campaigns" data-chart="bar" style="height:160px;background:var(--gray-50);border-radius:var(--r);display:flex;align-items:center;justify-content:center;color:var(--gray-300);font-size:12px" aria-hidden="true">Chart renders here</div>
+          </div>
+        </div>
+      </section><!-- /page-analytics -->
+
+
+      <!-- ======================================================
+           PAGE: INTEGRATIONS
+           data-page="integrations"
+           ====================================================== -->
+      <section id="page-integrations" class="lp-page" data-page="integrations" aria-labelledby="page-integrations-title">
+
+        <div class="lp-page-header">
+          <div>
+            <h1 class="lp-page-title" id="page-integrations-title">Integrations</h1>
+            <p class="lp-page-desc">Connect LeadPilot with your favorite tools.</p>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px" id="integrations-grid" role="list" aria-label="Available integrations">
+
+          <!-- HubSpot -->
+          <div class="lp-card" role="listitem" id="integration-hubspot" data-integration="hubspot">
+            <div class="lp-between lp-mb-2">
+              <span style="font-size:28px" aria-hidden="true">🟠</span>
+              <span class="lp-badge lp-badge-green" id="hubspot-status" role="status">Connected</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:600;margin-bottom:4px">HubSpot</h3>
+            <p class="lp-text-xs lp-text-muted" style="margin-bottom:14px">Sync leads and deals bidirectionally with your HubSpot CRM.</p>
+            <div class="lp-flex lp-gap-2">
+              <button type="button" class="btn btn-secondary btn-sm" data-action="integration-settings" data-integration="hubspot" aria-label="HubSpot settings">Settings</button>
+              <button type="button" class="btn btn-danger btn-sm" data-action="disconnect-integration" data-integration="hubspot" aria-label="Disconnect HubSpot">Disconnect</button>
+            </div>
+          </div>
+
+          <!-- Salesforce -->
+          <div class="lp-card" role="listitem" id="integration-salesforce" data-integration="salesforce">
+            <div class="lp-between lp-mb-2">
+              <span style="font-size:28px" aria-hidden="true">☁️</span>
+              <span class="lp-badge lp-badge-gray" id="salesforce-status" role="status">Not connected</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:600;margin-bottom:4px">Salesforce</h3>
+            <p class="lp-text-xs lp-text-muted" style="margin-bottom:14px">Sync opportunities and contacts with Salesforce CRM.</p>
+            <button type="button" class="btn btn-primary btn-sm" data-action="connect-integration" data-integration="salesforce" aria-label="Connect Salesforce">Connect</button>
+          </div>
+
+          <!-- Apollo.io -->
+          <div class="lp-card" role="listitem" id="integration-apollo" data-integration="apollo">
+            <div class="lp-between lp-mb-2">
+              <span style="font-size:28px" aria-hidden="true">🚀</span>
+              <span class="lp-badge lp-badge-green" id="apollo-status" role="status">Connected</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:600;margin-bottom:4px">Apollo.io</h3>
+            <p class="lp-text-xs lp-text-muted" style="margin-bottom:14px">Enrich contacts and find verified emails via Apollo database.</p>
+            <div class="lp-flex lp-gap-2">
+              <button type="button" class="btn btn-secondary btn-sm" data-action="integration-settings" data-integration="apollo">Settings</button>
+              <button type="button" class="btn btn-danger btn-sm" data-action="disconnect-integration" data-integration="apollo">Disconnect</button>
+            </div>
+          </div>
+
+          <!-- LinkedIn -->
+          <div class="lp-card" role="listitem" id="integration-linkedin" data-integration="linkedin">
+            <div class="lp-between lp-mb-2">
+              <span style="font-size:28px" aria-hidden="true">💼</span>
+              <span class="lp-badge lp-badge-gray" id="linkedin-status" role="status">Not connected</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:600;margin-bottom:4px">LinkedIn</h3>
+            <p class="lp-text-xs lp-text-muted" style="margin-bottom:14px">Send LinkedIn connection requests and messages automatically.</p>
+            <button type="button" class="btn btn-primary btn-sm" data-action="connect-integration" data-integration="linkedin">Connect</button>
+          </div>
+
+          <!-- Google Sheets -->
+          <div class="lp-card" role="listitem" id="integration-gsheets" data-integration="gsheets">
+            <div class="lp-between lp-mb-2">
+              <span style="font-size:28px" aria-hidden="true">📊</span>
+              <span class="lp-badge lp-badge-green" id="gsheets-status" role="status">Connected</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:600;margin-bottom:4px">Google Sheets</h3>
+            <p class="lp-text-xs lp-text-muted" style="margin-bottom:14px">Export and import lead data directly from Google Sheets.</p>
+            <div class="lp-flex lp-gap-2">
+              <button type="button" class="btn btn-secondary btn-sm" data-action="integration-settings" data-integration="gsheets">Settings</button>
+              <button type="button" class="btn btn-danger btn-sm" data-action="disconnect-integration" data-integration="gsheets">Disconnect</button>
+            </div>
+          </div>
+
+          <!-- OpenAI -->
+          <div class="lp-card" role="listitem" id="integration-openai" data-integration="openai">
+            <div class="lp-between lp-mb-2">
+              <span style="font-size:28px" aria-hidden="true">🤖</span>
+              <span class="lp-badge lp-badge-green" id="openai-status" role="status">Connected</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:600;margin-bottom:4px">OpenAI</h3>
+            <p class="lp-text-xs lp-text-muted" style="margin-bottom:14px">Powers AI scoring, email generation and lead analysis.</p>
+            <div class="lp-flex lp-gap-2">
+              <button type="button" class="btn btn-secondary btn-sm" data-action="integration-settings" data-integration="openai">Settings</button>
+              <button type="button" class="btn btn-danger btn-sm" data-action="disconnect-integration" data-integration="openai">Disconnect</button>
+            </div>
+          </div>
+
+          <!-- Zapier -->
+          <div class="lp-card" role="listitem" id="integration-zapier" data-integration="zapier">
+            <div class="lp-between lp-mb-2">
+              <span style="font-size:28px" aria-hidden="true">⚡</span>
+              <span class="lp-badge lp-badge-gray" id="zapier-status" role="status">Not connected</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:600;margin-bottom:4px">Zapier</h3>
+            <p class="lp-text-xs lp-text-muted" style="margin-bottom:14px">Connect LeadPilot to 5,000+ apps via Zapier automations.</p>
+            <button type="button" class="btn btn-primary btn-sm" data-action="connect-integration" data-integration="zapier">Connect</button>
+          </div>
+
+          <!-- Slack -->
+          <div class="lp-card" role="listitem" id="integration-slack" data-integration="slack">
+            <div class="lp-between lp-mb-2">
+              <span style="font-size:28px" aria-hidden="true">💬</span>
+              <span class="lp-badge lp-badge-green" id="slack-status" role="status">Connected</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:600;margin-bottom:4px">Slack</h3>
+            <p class="lp-text-xs lp-text-muted" style="margin-bottom:14px">Receive real-time notifications in your Slack workspace.</p>
+            <div class="lp-flex lp-gap-2">
+              <button type="button" class="btn btn-secondary btn-sm" data-action="integration-settings" data-integration="slack">Settings</button>
+              <button type="button" class="btn btn-danger btn-sm" data-action="disconnect-integration" data-integration="slack">Disconnect</button>
+            </div>
+          </div>
+
+        </div><!-- /integrations-grid -->
+      </section><!-- /page-integrations -->
+
+
+      <!-- ======================================================
+           PAGE: BILLING
+           data-page="billing"
+           ====================================================== -->
+      <section id="page-billing" class="lp-page" data-page="billing" aria-labelledby="page-billing-title">
+
+        <div class="lp-page-header">
+          <div>
+            <h1 class="lp-page-title" id="page-billing-title">Billing</h1>
+            <p class="lp-page-desc">Manage your subscription, credits and payment methods.</p>
+          </div>
+        </div>
+
+        <!-- Current Plan -->
+        <div class="lp-card lp-mb-4" id="billing-current-plan" style="background:linear-gradient(135deg,#1E40AF 0%,#2563EB 100%);border:none;color:white">
+          <div class="lp-between">
+            <div>
+              <div class="lp-text-xs" style="opacity:.7;margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:.07em">Current Plan</div>
+              <div style="font-size:24px;font-weight:700;margin-bottom:4px">⚡ Pro</div>
+              <div style="font-size:13px;opacity:.8">€59/month · Renews February 1, 2025</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:13px;opacity:.7;margin-bottom:6px">Credits used this month</div>
+              <div style="font-size:22px;font-weight:700" id="billing-credits-used">180 / 1,000</div>
+              <div style="height:5px;background:rgba(255,255,255,.2);border-radius:99px;margin-top:8px;overflow:hidden">
+                <div style="height:100%;width:18%;background:white;border-radius:99px" role="progressbar" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100" aria-label="18 percent credits used"></div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:18px;display:flex;gap:10px">
+            <button type="button" class="btn" style="background:white;color:var(--blue);font-weight:600" id="btn-upgrade-plan" data-action="open-upgrade-modal" aria-label="Upgrade your plan">Upgrade Plan</button>
+            <button type="button" class="btn" style="background:rgba(255,255,255,.15);color:white;border:1px solid rgba(255,255,255,.3)" id="btn-manage-subscription" data-action="manage-subscription">Manage Subscription</button>
+          </div>
+        </div>
+
+        <!-- Plan options -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px" id="billing-plan-options" role="list" aria-label="Available plans">
+          <div class="lp-card" role="listitem" data-plan="starter" style="border:2px solid var(--gray-200)">
+            <div style="font-size:15px;font-weight:600;margin-bottom:4px">Starter</div>
+            <div style="font-size:30px;font-weight:800;color:var(--gray-900);margin-bottom:12px">€29<span style="font-size:14px;font-weight:400;color:var(--gray-400)">/mo</span></div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:16px">
+              <li class="lp-flex lp-gap-2 lp-text-sm"><span style="color:var(--green)">✓</span> 500 leads/month</li>
+              <li class="lp-flex lp-gap-2 lp-text-sm"><span style="color:var(--green)">✓</span> 2 campaigns</li>
+              <li class="lp-flex lp-gap-2 lp-text-sm"><span style="color:var(--green)">✓</span> AI assistant</li>
+              <li class="lp-flex lp-gap-2 lp-text-sm"><span style="color:var(--green)">✓</span> Email generator</li>
+            </ul>
+            <button type="button" class="btn btn-secondary btn-full btn-sm" data-action="select-plan" data-plan="starter">Downgrade</button>
+          </div>
+          <div class="lp-card" role="listitem" data-plan="pro" style="border:2px solid var(--blue);background:var(--blue-light)">
+            <div class="lp-between lp-mb-2">
+              <div style="font-size:15px;font-weight:600">Pro</div>
+              <span class="lp-badge lp-badge-blue">Current</span>
+            </div>
+            <div style="font-size:30px;font-weight:800;color:var(--gray-900);margin-bottom:12px">€59<span style="font-size:14px;font-weight:400;color:var(--gray-400)">/mo</span></div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:16px">
+              <li class="lp-flex lp-gap-2 lp-text-sm"><span style="color:var(--green)">✓</span> 5,000 leads/month</li>
+              <li class="lp-flex lp-gap-2 lp-text-sm"><span style="color:var(--green)">✓</span> Unlimited campaigns</li>
+              <li class="lp-flex lp-gap-2 lp-text-sm"><span style="color:var(--green)">✓</span> Priority AI</li>
+              <li class="lp-flex lp-gap-2 lp-text-sm"><span style="color:var(--green)">✓</span> Full analytics</li>
+              <li class="lp-flex lp-gap-2 lp-text-sm"><span style="color:var(--green)">✓</span> CRM integration</li>
+            </ul>
+            <button type="button" class="btn btn-secondary btn-full btn-sm" disabled>Current Plan</button>
+          </div>
+          <div class="lp-card" role="listitem" data-plan="agency" style="border:2px solid var(--gray-200)">
+            <div style="font-size:15px;font-weight:600;margin-bottom:4px">Agency</div>
+            <div style="font-size:30px;font-weight:800;color:var(--gray-900);margin-bottom:12px">€99<span style="font-size:14px;font-weight:400;color:var(--gray-400)">/mo</span></div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:16px">
+              <li class="lp-flex lp-gap-2 lp-text-sm"><span style="color:var(--green)">✓</span> Unlimited leads</li>
+              <li class="lp-flex lp-gap-2 lp-text-sm"><span style="color:var(--green)">✓</span> 5 workspaces</li>
+              <li class="lp-flex lp-gap-2 lp-text-sm"><span style="color:var(--green)">✓</span> White label</li>
+              <li class="lp-flex lp-gap-2 lp-text-sm"><span style="color:var(--green)">✓</span> API access</li>
+              <li class="lp-flex lp-gap-2 lp-text-sm"><span style="color:var(--green)">✓</span> Dedicated support</li>
+            </ul>
+            <button type="button" class="btn btn-primary btn-full btn-sm" data-action="select-plan" data-plan="agency">Upgrade</button>
+          </div>
+        </div>
+
+        <!-- Invoices -->
+        <div class="lp-card lp-p-0" style="padding:0;overflow:hidden" id="billing-invoices">
+          <div style="padding:16px 20px;border-bottom:1px solid var(--gray-100)">
+            <h2 class="lp-card-title">Invoice History</h2>
+          </div>
+          <table class="lp-table" aria-label="Invoice history">
+            <thead>
+              <tr>
+                <th class="no-sort" scope="col">Invoice</th>
+                <th class="no-sort" scope="col">Date</th>
+                <th class="no-sort" scope="col">Plan</th>
+                <th class="no-sort" scope="col">Amount</th>
+                <th class="no-sort" scope="col">Status</th>
+                <th class="no-sort" scope="col">Download</th>
+              </tr>
+            </thead>
+            <tbody id="invoices-tbody">
+              <tr><td>#INV-2025-001</td><td><time datetime="2025-01-01">Jan 1, 2025</time></td><td>Pro Plan</td><td style="font-weight:600">€59.00</td><td><span class="lp-badge lp-badge-green">Paid</span></td><td><button type="button" class="btn btn-ghost btn-sm" data-action="download-invoice" data-invoice="INV-2025-001" aria-label="Download invoice January 2025">↓ PDF</button></td></tr>
+              <tr><td>#INV-2024-012</td><td><time datetime="2024-12-01">Dec 1, 2024</time></td><td>Pro Plan</td><td style="font-weight:600">€59.00</td><td><span class="lp-badge lp-badge-green">Paid</span></td><td><button type="button" class="btn btn-ghost btn-sm" data-action="download-invoice" data-invoice="INV-2024-012">↓ PDF</button></td></tr>
+              <tr><td>#INV-2024-011</td><td><time datetime="2024-11-01">Nov 1, 2024</time></td><td>Pro Plan</td><td style="font-weight:600">€59.00</td><td><span class="lp-badge lp-badge-green">Paid</span></td><td><button type="button" class="btn btn-ghost btn-sm" data-action="download-invoice" data-invoice="INV-2024-011">↓ PDF</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </section><!-- /page-billing -->
+
+
+      <!-- ======================================================
+           PAGE: SETTINGS
+           data-page="settings"
+           ====================================================== -->
+      <section id="page-settings" class="lp-page" data-page="settings" aria-labelledby="page-settings-title">
+
+        <div class="lp-page-header">
+          <div>
+            <h1 class="lp-page-title" id="page-settings-title">Settings</h1>
+            <p class="lp-page-desc">Manage your workspace preferences.</p>
+          </div>
+        </div>
+
+        <div class="settings-shell">
+
+          <!-- Settings Navigation -->
+          <nav class="settings-nav-panel" aria-label="Settings sections">
+            <button type="button" class="settings-nav-item active" data-settings-tab="notifications" id="stab-notifications">🔔 Notifications</button>
+            <button type="button" class="settings-nav-item" data-settings-tab="language" id="stab-language">🌐 Language</button>
+            <button type="button" class="settings-nav-item" data-settings-tab="workspace" id="stab-workspace">🏢 Workspace</button>
+            <button type="button" class="settings-nav-item" data-settings-tab="api" id="stab-api">🔑 API Keys</button>
+            <button type="button" class="settings-nav-item" data-settings-tab="smtp" id="stab-smtp">📧 SMTP / Email</button>
+            <button type="button" class="settings-nav-item" data-settings-tab="team" id="stab-team">👥 Team</button>
+          </nav>
+
+          <!-- Settings Content panels -->
+          <div class="settings-content">
+
+            <!-- Notifications -->
+            <div id="settings-tab-notifications" data-settings-panel="notifications">
+              <div class="settings-section-title">Notification Preferences</div>
+              <div class="settings-section-desc">Choose what you want to be notified about.</div>
+              <div class="lp-card">
+                <div class="settings-row">
+                  <div><div class="settings-row-label">Email replies</div><div class="settings-row-desc">Notify when a lead replies to your email</div></div>
+                  <label class="lp-toggle"><input type="checkbox" id="notif-replies" name="notif-replies" checked data-setting="notif-replies" /><span class="lp-toggle-slider"></span></label>
+                </div>
+                <div class="settings-row">
+                  <div><div class="settings-row-label">Campaign updates</div><div class="settings-row-desc">Progress updates for active campaigns</div></div>
+                  <label class="lp-toggle"><input type="checkbox" id="notif-campaigns" name="notif-campaigns" checked data-setting="notif-campaigns" /><span class="lp-toggle-slider"></span></label>
+                </div>
+                <div class="settings-row">
+                  <div><div class="settings-row-label">New leads found</div><div class="settings-row-desc">When AI finds new leads matching your ICP</div></div>
+                  <label class="lp-toggle"><input type="checkbox" id="notif-leads" name="notif-leads" data-setting="notif-leads" /><span class="lp-toggle-slider"></span></label>
+                </div>
+                <div class="settings-row">
+                  <div><div class="settings-row-label">Weekly digest</div><div class="settings-row-desc">Summary of your weekly performance</div></div>
+                  <label class="lp-toggle"><input type="checkbox" id="notif-digest" name="notif-digest" checked data-setting="notif-digest" /><span class="lp-toggle-slider"></span></label>
+                </div>
+                <div class="settings-row">
+                  <div><div class="settings-row-label">Low credits warning</div><div class="settings-row-desc">Alert when credits drop below 20%</div></div>
+                  <label class="lp-toggle"><input type="checkbox" id="notif-credits" name="notif-credits" checked data-setting="notif-credits" /><span class="lp-toggle-slider"></span></label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Language -->
+            <div id="settings-tab-language" data-settings-panel="language" hidden>
+              <div class="settings-section-title">Language & Region</div>
+              <div class="settings-section-desc">Set your preferred language and date format.</div>
+              <div class="lp-card">
+                <div class="lp-form-group">
+                  <label class="lp-label" for="settings-language">Interface Language</label>
+                  <select id="settings-language" name="language" class="lp-input lp-select" style="max-width:280px" data-setting="language">
+                    <option value="en">🇬🇧 English</option>
+                    <option value="cs">🇨🇿 Čeština</option>
+                    <option value="ru">🇷🇺 Русский</option>
+                    <option value="de">🇩🇪 Deutsch</option>
+                    <option value="pl">🇵🇱 Polski</option>
+                  </select>
+                </div>
+                <div class="lp-form-group">
+                  <label class="lp-label" for="settings-date-format">Date Format</label>
+                  <select id="settings-date-format" name="date-format" class="lp-input lp-select" style="max-width:280px" data-setting="date-format">
+                    <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                    <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                    <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                  </select>
+                </div>
+                <div class="lp-form-group">
+                  <label class="lp-label" for="settings-timezone">Timezone</label>
+                  <select id="settings-timezone" name="timezone" class="lp-input lp-select" style="max-width:280px" data-setting="timezone">
+                    <option value="UTC">UTC</option>
+                    <option value="Europe/Prague" selected>Europe/Prague (CET)</option>
+                    <option value="Europe/Berlin">Europe/Berlin (CET)</option>
+                    <option value="Europe/London">Europe/London (GMT)</option>
+                    <option value="America/New_York">America/New_York (EST)</option>
+                  </select>
+                </div>
+                <button type="button" class="btn btn-primary" data-action="save-language-settings">Save Changes</button>
+              </div>
+            </div>
+
+            <!-- Workspace -->
+            <div id="settings-tab-workspace" data-settings-panel="workspace" hidden>
+              <div class="settings-section-title">Workspace Settings</div>
+              <div class="settings-section-desc">Configure your team workspace.</div>
+              <div class="lp-card">
+                <div class="lp-form-group">
+                  <label class="lp-label" for="settings-workspace-name">Workspace Name</label>
+                  <input type="text" id="settings-workspace-name" name="workspace-name" class="lp-input" value="Acme Inc." style="max-width:340px" data-setting="workspace-name" maxlength="60" />
+                </div>
+                <div class="lp-form-group">
+                  <label class="lp-label" for="settings-workspace-url">Custom Domain (Agency)</label>
+                  <input type="url" id="settings-workspace-url" name="workspace-url" class="lp-input" placeholder="https://leads.yourcompany.com" style="max-width:340px" data-setting="workspace-url" />
+                </div>
+                <button type="button" class="btn btn-primary" data-action="save-workspace-settings">Save Changes</button>
+              </div>
+            </div>
+
+            <!-- API Keys -->
+            <div id="settings-tab-api" data-settings-panel="api" hidden>
+              <div class="settings-section-title">API Keys</div>
+              <div class="settings-section-desc">Use these keys to connect LeadPilot to external services.</div>
+              <div class="lp-card">
+                <div class="lp-form-group">
+                  <label class="lp-label" for="api-key-display">LeadPilot API Key</label>
+                  <div class="lp-flex lp-gap-2">
+                    <input type="text" id="api-key-display" name="api-key" class="lp-input" value="lp_live_sk_8f2a9b3c4d5e6f7g8h9i0j…" readonly aria-label="Your API key" style="font-family:monospace;font-size:12px" />
+                    <button type="button" class="btn btn-secondary" id="btn-copy-api-key" data-action="copy-api-key" aria-label="Copy API key">Copy</button>
+                    <button type="button" class="btn btn-danger btn-sm" data-action="regenerate-api-key" aria-label="Regenerate API key">Regen</button>
+                  </div>
+                </div>
+                <div class="lp-form-group">
+                  <label class="lp-label" for="openai-api-key">OpenAI API Key</label>
+                  <input type="password" id="openai-api-key" name="openai-api-key" class="lp-input" placeholder="sk-…" style="max-width:340px;font-family:monospace" data-setting="openai-key" autocomplete="off" />
+                  <div class="lp-text-xs lp-text-muted lp-mt-1">Used for AI scoring, email generation and analysis. <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener" style="color:var(--blue)">Get your key →</a></div>
+                </div>
+                <button type="button" class="btn btn-primary" data-action="save-api-keys">Save Keys</button>
+              </div>
+            </div>
+
+            <!-- SMTP -->
+            <div id="settings-tab-smtp" data-settings-panel="smtp" hidden>
+              <div class="settings-section-title">SMTP / Email Sending</div>
+              <div class="settings-section-desc">Configure your outbound email server.</div>
+              <div class="lp-card">
+                <div class="lp-form-row">
+                  <div class="lp-form-group">
+                    <label class="lp-label" for="smtp-host">SMTP Host</label>
+                    <input type="text" id="smtp-host" name="smtp-host" class="lp-input" placeholder="smtp.gmail.com" data-setting="smtp-host" maxlength="100" />
+                  </div>
+                  <div class="lp-form-group">
+                    <label class="lp-label" for="smtp-port">Port</label>
+                    <input type="number" id="smtp-port" name="smtp-port" class="lp-input" placeholder="587" min="1" max="65535" data-setting="smtp-port" />
+                  </div>
+                </div>
+                <div class="lp-form-row">
+                  <div class="lp-form-group">
+                    <label class="lp-label" for="smtp-user">Username</label>
+                    <input type="email" id="smtp-user" name="smtp-user" class="lp-input" placeholder="you@yourdomain.com" data-setting="smtp-user" />
+                  </div>
+                  <div class="lp-form-group">
+                    <label class="lp-label" for="smtp-pass">Password</label>
+                    <input type="password" id="smtp-pass" name="smtp-pass" class="lp-input" placeholder="App password" data-setting="smtp-pass" autocomplete="new-password" />
+                  </div>
+                </div>
+                <div class="lp-form-group">
+                  <label class="lp-label" for="smtp-from">From Name</label>
+                  <input type="text" id="smtp-from" name="smtp-from" class="lp-input" placeholder="Alex Johnson" style="max-width:280px" data-setting="smtp-from" />
+                </div>
+                <div class="lp-flex lp-gap-2">
+                  <button type="button" class="btn btn-primary" data-action="save-smtp-settings">Save SMTP</button>
+                  <button type="button" class="btn btn-secondary" data-action="test-smtp" id="btn-test-smtp">Send Test Email</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Team -->
+            <div id="settings-tab-team" data-settings-panel="team" hidden>
+              <div class="settings-section-title">Team Members</div>
+              <div class="settings-section-desc">Manage who has access to your workspace.</div>
+              <div class="lp-card">
+                <div class="lp-between lp-mb-4">
+                  <span class="lp-text-sm lp-text-muted">3 members</span>
+                  <button type="button" class="btn btn-primary btn-sm" data-action="invite-team-member" id="btn-invite-member">+ Invite Member</button>
+                </div>
+                <div id="team-members-list">
+                  <div class="settings-row">
+                    <div class="lp-flex lp-gap-2 lp-flex-center">
+                      <div class="lp-avatar">AJ</div>
+                      <div><div class="settings-row-label">Alex Johnson</div><div class="settings-row-desc">alex@company.com</div></div>
+                    </div>
+                    <select class="lp-input lp-select" style="width:110px" aria-label="Alex Johnson role" data-member-id="1" data-action="change-member-role"><option selected>Admin</option><option>Member</option><option>Viewer</option></select>
+                  </div>
+                  <div class="settings-row">
+                    <div class="lp-flex lp-gap-2 lp-flex-center">
+                      <div class="lp-avatar" style="background:var(--green)">MS</div>
+                      <div><div class="settings-row-label">Maria Schmidt</div><div class="settings-row-desc">m.schmidt@company.com</div></div>
+                    </div>
+                    <div class="lp-flex lp-gap-2">
+                      <select class="lp-input lp-select" style="width:110px" aria-label="Maria Schmidt role" data-member-id="2" data-action="change-member-role"><option>Admin</option><option selected>Member</option><option>Viewer</option></select>
+                      <button type="button" class="btn btn-danger btn-sm" data-action="remove-team-member" data-member-id="2" aria-label="Remove Maria Schmidt">Remove</button>
+                    </div>
+                  </div>
+                  <div class="settings-row">
+                    <div class="lp-flex lp-gap-2 lp-flex-center">
+                      <div class="lp-avatar" style="background:var(--orange)">TB</div>
+                      <div><div class="settings-row-label">Tom Brown</div><div class="settings-row-desc">t.brown@company.com</div></div>
+                    </div>
+                    <div class="lp-flex lp-gap-2">
+                      <select class="lp-input lp-select" style="width:110px" aria-label="Tom Brown role" data-member-id="3" data-action="change-member-role"><option>Admin</option><option>Member</option><option selected>Viewer</option></select>
+                      <button type="button" class="btn btn-danger btn-sm" data-action="remove-team-member" data-member-id="3" aria-label="Remove Tom Brown">Remove</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /settings-content -->
+        </div><!-- /settings-shell -->
+      </section><!-- /page-settings -->
+
+
+      <!-- ======================================================
+           PAGE: PROFILE
+           data-page="profile"
+           ====================================================== -->
+      <section id="page-profile" class="lp-page" data-page="profile" aria-labelledby="page-profile-title">
+
+        <div class="lp-page-header">
+          <div>
+            <h1 class="lp-page-title" id="page-profile-title">Your Profile</h1>
+            <p class="lp-page-desc">Manage your personal information and security.</p>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:18px">
+
+          <!-- Profile form -->
+          <div>
+            <div class="lp-card lp-mb-4">
+              <h2 class="lp-card-title lp-mb-4">Personal Information</h2>
+              <form id="profile-form" name="profile" novalidate>
+                <div style="display:flex;align-items:center;gap:18px;margin-bottom:22px">
+                  <div class="lp-avatar-lg" id="profile-avatar" aria-hidden="true">AJ</div>
+                  <div>
+                    <button type="button" class="btn btn-secondary btn-sm" data-action="change-avatar" aria-label="Change profile photo">Change Photo</button>
+                    <div class="lp-text-xs lp-text-muted lp-mt-1">JPG or PNG, max 2MB</div>
+                  </div>
+                </div>
+                <div class="lp-form-row">
+                  <div class="lp-form-group">
+                    <label class="lp-label" for="profile-first-name">First Name</label>
+                    <input type="text" id="profile-first-name" name="first-name" class="lp-input" value="Alex" required maxlength="50" data-field="first-name" />
+                  </div>
+                  <div class="lp-form-group">
+                    <label class="lp-label" for="profile-last-name">Last Name</label>
+                    <input type="text" id="profile-last-name" name="last-name" class="lp-input" value="Johnson" required maxlength="50" data-field="last-name" />
+                  </div>
+                </div>
+                <div class="lp-form-group">
+                  <label class="lp-label" for="profile-email">Email Address</label>
+                  <input type="email" id="profile-email" name="email" class="lp-input" value="alex@company.com" required data-field="email" />
+                </div>
+                <div class="lp-form-group">
+                  <label class="lp-label" for="profile-job-title">Job Title</label>
+                  <input type="text" id="profile-job-title" name="job-title" class="lp-input" value="VP Sales" maxlength="80" data-field="job-title" />
+                </div>
+                <div class="lp-form-group">
+                  <label class="lp-label" for="profile-company">Company</label>
+                  <input type="text" id="profile-company" name="company" class="lp-input" value="Acme Inc." maxlength="100" data-field="company" />
+                </div>
+                <div class="lp-form-group">
+                  <label class="lp-label" for="profile-phone">Phone</label>
+                  <input type="tel" id="profile-phone" name="phone" class="lp-input" placeholder="+1 555 000 0000" data-field="phone" />
+                </div>
+                <button type="submit" class="btn btn-primary" id="btn-save-profile" data-action="save-profile">Save Changes</button>
+              </form>
+            </div>
+
+            <!-- Security -->
+            <div class="lp-card">
+              <h2 class="lp-card-title lp-mb-4">Security</h2>
+              <form id="password-form" name="change-password" novalidate>
+                <div class="lp-form-group">
+                  <label class="lp-label" for="profile-current-pass">Current Password</label>
+                  <input type="password" id="profile-current-pass" name="current-password" class="lp-input" autocomplete="current-password" style="max-width:340px" required data-field="current-password" />
+                </div>
+                <div class="lp-form-group">
+                  <label class="lp-label" for="profile-new-pass">New Password</label>
+                  <input type="password" id="profile-new-pass" name="new-password" class="lp-input" autocomplete="new-password" style="max-width:340px" required minlength="8" data-field="new-password" />
+                </div>
+                <div class="lp-form-group">
+                  <label class="lp-label" for="profile-confirm-pass">Confirm New Password</label>
+                  <input type="password" id="profile-confirm-pass" name="confirm-password" class="lp-input" autocomplete="new-password" style="max-width:340px" required data-field="confirm-password" />
+                  <div class="lp-field-error" id="password-match-error" role="alert" hidden></div>
+                </div>
+                <button type="submit" class="btn btn-primary" id="btn-change-password" data-action="change-password">Update Password</button>
+              </form>
+              <div class="lp-divider"></div>
+              <div class="settings-row">
+                <div>
+                  <div class="settings-row-label">Two-Factor Authentication</div>
+                  <div class="settings-row-desc">Add extra security with TOTP (Google Authenticator, etc.)</div>
+                </div>
+                <button type="button" class="btn btn-secondary btn-sm" id="btn-enable-2fa" data-action="enable-2fa">Enable 2FA</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sidebar info -->
+          <div>
+            <div class="lp-card lp-mb-4">
+              <h3 class="lp-card-title lp-mb-4">Account Overview</h3>
+              <div class="settings-row" style="padding:8px 0">
+                <div class="settings-row-label">Plan</div>
+                <span class="lp-badge lp-badge-blue">⚡ Pro</span>
+              </div>
+              <div class="settings-row" style="padding:8px 0">
+                <div class="settings-row-label">Credits</div>
+                <span class="lp-text-sm" style="font-weight:600">820 / 1,000</span>
+              </div>
+              <div class="settings-row" style="padding:8px 0">
+                <div class="settings-row-label">Member since</div>
+                <span class="lp-text-sm lp-text-muted"><time datetime="2024-10-01">Oct 2024</time></span>
+              </div>
+              <div class="settings-row" style="padding:8px 0;border-bottom:none">
+                <div class="settings-row-label">Last login</div>
+                <span class="lp-text-sm lp-text-muted">Today, 09:32</span>
+              </div>
+            </div>
+            <div class="lp-card" style="border-color:var(--red-light)">
+              <h3 style="font-size:13px;font-weight:600;color:var(--red);margin-bottom:8px">Danger Zone</h3>
+              <p class="lp-text-xs lp-text-muted" style="margin-bottom:12px">Permanently delete your account and all data. This cannot be undone.</p>
+              <button type="button" class="btn btn-danger btn-sm" id="btn-delete-account" data-action="delete-account" aria-label="Delete account permanently">Delete Account</button>
+            </div>
+          </div>
+
+        </div><!-- /profile grid -->
+      </section><!-- /page-profile -->
+
+
+    </main><!-- /lp-content -->
+
+
+    <!-- ========================================================
+         FOOTER
+         ======================================================== -->
+    <footer class="lp-main-footer" id="lp-footer" role="contentinfo" style="border-top:1px solid var(--gray-200);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;background:white;font-size:12px;color:var(--gray-400)">
+      <div class="lp-flex lp-gap-2 lp-flex-center">
+        <span aria-label="Application version" id="footer-version">LeadPilot v1.0.0</span>
+        <span aria-hidden="true">·</span>
+        <a href="#" data-action="open-docs" class="lp-text-muted" style="color:var(--gray-400)">Documentation</a>
+        <span aria-hidden="true">·</span>
+        <a href="#" data-action="open-support" class="lp-text-muted" style="color:var(--gray-400)">Support</a>
+      </div>
+      <div class="lp-flex lp-gap-2 lp-flex-center">
+        <a href="#" data-action="open-privacy" class="lp-text-muted" style="color:var(--gray-400)">Privacy Policy</a>
+        <span aria-hidden="true">·</span>
+        <a href="#" data-action="open-terms" class="lp-text-muted" style="color:var(--gray-400)">Terms of Service</a>
+        <span aria-hidden="true">·</span>
+        <span>© 2025 LeadPilot</span>
+      </div>
+    </footer>
+
+  </div><!-- /lp-main -->
+
+</div><!-- /lp-shell -->
+
+
+<!-- ============================================================
+     EMPTY MODAL TEMPLATES (cloned/rendered by JS)
+     ============================================================ -->
+
+<!-- Add/Edit Lead Modal -->
+<template id="tpl-lead-modal">
+  <div class="lp-modal-bg" id="modal-lead-bg" role="dialog" aria-modal="true" aria-labelledby="modal-lead-title">
+    <div class="lp-modal">
+      <div class="lp-modal-header">
+        <h2 class="lp-modal-title" id="modal-lead-title">Add New Lead</h2>
+        <button type="button" class="btn btn-ghost btn-sm btn-icon" id="modal-lead-close" aria-label="Close modal">✕</button>
+      </div>
+      <div class="lp-modal-body">
+        <form id="modal-lead-form" name="lead-form" novalidate>
+          <div class="lp-form-row">
+            <div class="lp-form-group">
+              <label class="lp-label" for="ml-company">Company Name <span aria-hidden="true" style="color:var(--red)">*</span></label>
+              <input type="text" id="ml-company" name="company" class="lp-input" required maxlength="100" data-field="company" />
+              <div class="lp-field-error" id="ml-company-error" role="alert" hidden></div>
+            </div>
+            <div class="lp-form-group">
+              <label class="lp-label" for="ml-contact">Contact Person</label>
+              <input type="text" id="ml-contact" name="contact" class="lp-input" maxlength="80" data-field="contact" />
+            </div>
+          </div>
+          <div class="lp-form-row">
+            <div class="lp-form-group">
+              <label class="lp-label" for="ml-email">Email <span aria-hidden="true" style="color:var(--red)">*</span></label>
+              <input type="email" id="ml-email" name="email" class="lp-input" required data-field="email" />
+              <div class="lp-field-error" id="ml-email-error" role="alert" hidden></div>
+            </div>
+            <div class="lp-form-group">
+              <label class="lp-label" for="ml-phone">Phone</label>
+              <input type="tel" id="ml-phone" name="phone" class="lp-input" data-field="phone" />
+            </div>
+          </div>
+          <div class="lp-form-row">
+            <div class="lp-form-group">
+              <label class="lp-label" for="ml-industry">Industry</label>
+              <select id="ml-industry" name="industry" class="lp-input lp-select" data-field="industry">
+                <option value="">Select…</option>
+                <option value="SaaS">SaaS</option>
+                <option value="Logistics">Logistics</option>
+                <option value="Fintech">Fintech</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Manufacturing">Manufacturing</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Consulting">Consulting</option>
+                <option value="E-commerce">E-commerce</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="lp-form-group">
+              <label class="lp-label" for="ml-status">Status</label>
+              <select id="ml-status" name="status" class="lp-input lp-select" data-field="status">
+                <option value="new">New</option>
+                <option value="contacted">Contacted</option>
+                <option value="interested">Interested</option>
+                <option value="converted">Converted</option>
+                <option value="rejected">Rejected</option>
+              </select>
+            </div>
+          </div>
+          <div class="lp-form-row">
+            <div class="lp-form-group">
+              <label class="lp-label" for="ml-website">Website</label>
+              <input type="url" id="ml-website" name="website" class="lp-input" placeholder="https://" data-field="website" />
+            </div>
+            <div class="lp-form-group">
+              <label class="lp-label" for="ml-country">Country</label>
+              <input type="text" id="ml-country" name="country" class="lp-input" data-field="country" maxlength="60" />
+            </div>
+          </div>
+          <div class="lp-form-group">
+            <label class="lp-label" for="ml-notes">Notes</label>
+            <textarea id="ml-notes" name="notes" class="lp-input" rows="3" data-field="notes" maxlength="500" placeholder="Any relevant notes about this lead…"></textarea>
+          </div>
+          <input type="hidden" id="ml-lead-id" name="lead-id" value="" />
+        </form>
+      </div>
+      <div class="lp-modal-footer">
+        <button type="button" class="btn btn-secondary" id="modal-lead-cancel">Cancel</button>
+        <button type="button" class="btn btn-primary" id="modal-lead-save" data-action="save-lead" form="modal-lead-form">Save Lead</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- Confirm Delete Modal -->
+<template id="tpl-confirm-modal">
+  <div class="lp-modal-bg" id="modal-confirm-bg" role="dialog" aria-modal="true" aria-labelledby="modal-confirm-title" aria-describedby="modal-confirm-desc">
+    <div class="lp-modal" style="max-width:400px">
+      <div class="lp-modal-header">
+        <h2 class="lp-modal-title" id="modal-confirm-title">Confirm Action</h2>
+        <button type="button" class="btn btn-ghost btn-sm btn-icon" id="modal-confirm-close" aria-label="Close">✕</button>
+      </div>
+      <div class="lp-modal-body">
+        <p id="modal-confirm-desc" style="font-size:13px;color:var(--gray-600)">Are you sure? This action cannot be undone.</p>
+      </div>
+      <div class="lp-modal-footer">
+        <button type="button" class="btn btn-secondary" id="modal-confirm-cancel">Cancel</button>
+        <button type="button" class="btn btn-danger" id="modal-confirm-ok" data-action="confirm-delete">Delete</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- New Campaign Modal -->
+<template id="tpl-campaign-modal">
+  <div class="lp-modal-bg" id="modal-campaign-bg" role="dialog" aria-modal="true" aria-labelledby="modal-campaign-title">
+    <div class="lp-modal">
+      <div class="lp-modal-header">
+        <h2 class="lp-modal-title" id="modal-campaign-title">Create New Campaign</h2>
+        <button type="button" class="btn btn-ghost btn-sm btn-icon" id="modal-campaign-close" aria-label="Close">✕</button>
+      </div>
+      <div class="lp-modal-body">
+        <form id="modal-campaign-form" name="campaign-form" novalidate>
+          <div class="lp-form-group">
+            <label class="lp-label" for="mc-name">Campaign Name <span aria-hidden="true" style="color:var(--red)">*</span></label>
+            <input type="text" id="mc-name" name="campaign-name" class="lp-input" placeholder="e.g. Germany SaaS Q2" required maxlength="80" data-field="campaign-name" />
+            <div class="lp-field-error" id="mc-name-error" role="alert" hidden></div>
+          </div>
+          <div class="lp-form-row">
+            <div class="lp-form-group">
+              <label class="lp-label" for="mc-goal">Goal</label>
+              <select id="mc-goal" name="goal" class="lp-input lp-select" data-field="goal">
+                <option value="book-call">Book a discovery call</option>
+                <option value="demo">Schedule a demo</option>
+                <option value="partnership">Partnership outreach</option>
+              </select>
+            </div>
+            <div class="lp-form-group">
+              <label class="lp-label" for="mc-language">Language</label>
+              <select id="mc-language" name="language" class="lp-input lp-select" data-field="language">
+                <option value="en">English</option>
+                <option value="de">German</option>
+                <option value="cs">Czech</option>
+                <option value="ru">Russian</option>
+              </select>
+            </div>
+          </div>
+          <div class="lp-form-group">
+            <label class="lp-label" for="mc-leads">Select Lead List</label>
+            <select id="mc-leads" name="leads" class="lp-input lp-select" data-field="leads">
+              <option value="all-new">All new leads (89)</option>
+              <option value="germany">Germany leads (34)</option>
+              <option value="fintech">Fintech leads (18)</option>
+              <option value="custom">Custom selection</option>
+            </select>
+          </div>
+          <div class="lp-form-row">
+            <div class="lp-form-group">
+              <label class="lp-label" for="mc-start-date">Start Date</label>
+              <input type="date" id="mc-start-date" name="start-date" class="lp-input" data-field="start-date" />
+            </div>
+            <div class="lp-form-group">
+              <label class="lp-label" for="mc-send-time">Send Time</label>
+              <select id="mc-send-time" name="send-time" class="lp-input lp-select" data-field="send-time">
+                <option value="09:00">9:00 AM</option>
+                <option value="10:00">10:00 AM</option>
+                <option value="11:00">11:00 AM</option>
+                <option value="14:00">2:00 PM</option>
+              </select>
+            </div>
+          </div>
+          <div style="background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:var(--r-sm);padding:12px;font-size:12px;color:var(--blue)">
+            ✨ <strong>AI will automatically generate</strong> personalized emails for each lead based on their profile and score.
+          </div>
+        </form>
+      </div>
+      <div class="lp-modal-footer">
+        <button type="button" class="btn btn-secondary" id="modal-campaign-cancel">Cancel</button>
+        <button type="button" class="btn btn-secondary" id="modal-campaign-draft" data-action="save-campaign-draft">Save Draft</button>
+        <button type="button" class="btn btn-primary" id="modal-campaign-launch" data-action="launch-new-campaign">Launch Campaign</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script src="js/dashboard.js" defer></script>
+
+</body>
+</html>
