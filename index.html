@@ -2967,15 +2967,6 @@ document.head.appendChild(style);
 // INIT
 // ============================================================
 showPage('landing');
-<section id="dashboard-container"></section>
-  <script>
-fetch("dashboard.html")
-.then(response => response.text())
-.then(data => {
-    document.getElementById("dashboard-container").innerHTML = data;
-})
-.catch(error => console.log(error));
-  <link rel="stylesheet" href="css/dashboard.css">
 </script>
 </body>
 </html>
