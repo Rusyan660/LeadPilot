@@ -2996,6 +2996,20 @@ fetch("dashboard.html")
 .catch(error => {
     console.log("Dashboard loading error:", error);
 });
+<script>
+
+function showPage(){
+    document
+    .getElementById("dashboard-container")
+    .scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+
+function showDemoModal(){
+    alert("Demo coming soon");
+}
 
 </script>
 </body>
