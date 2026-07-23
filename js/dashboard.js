@@ -5,7 +5,7 @@
    ============================================================ */
 const CONFIG = {
   version: '1.0.0',
-  appName: 'LeadPilot',
+  appName: 'ProspectorAI',
   storagePrefix: 'lp_',
   defaultLang: 'en',
   debounceMs: 280,
@@ -1194,7 +1194,7 @@ const LeadsPage = (() => {
     const csv = [headers.join(','), ...rows].join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
-    const a = Object.assign(document.createElement('a'), { href: url, download: 'leadpilot_leads.csv' });
+    const a = Object.assign(document.createElement('a'), { href: url, download: 'ProspectorAI_leads.csv' });
     a.click();
     URL.revokeObjectURL(url);
     Toast.show(I18n.t('exportStarted'), 'success');
@@ -2258,7 +2258,7 @@ function attachGlobalEvents() {
     if (action === 'change-analytics-range')  { Charts.initAnalyticsCharts(); return; }
     if (action === 'export-analytics')        { Toast.show(I18n.t('exportStarted'), 'info'); return; }
     if (action === 'export-email-chart')      { Toast.show(I18n.t('exportStarted'), 'info'); return; }
-    if (action === 'open-docs')               { window.open('https://docs.leadpilot.io', '_blank', 'noopener'); return; }
+    if (action === 'open-docs')               { window.open('https://docs.ProspectorAI.io', '_blank', 'noopener'); return; }
     if (action === 'open-support')            { Router.go('settings'); return; }
     if (action === 'open-privacy')            { Toast.show('Opening privacy policy…', 'info'); return; }
     if (action === 'open-terms')              { Toast.show('Opening terms of service…', 'info'); return; }
