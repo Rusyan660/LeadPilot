@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * LeadPilot - Landing Page & Main App Logic
+ * ProspectorAI - Landing Page & Main App Logic
  * Handles navigation, modals, dropdowns, language switching
  */
 
@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Show landing page by default
   showPage('landing');
 
-  console.log('%cLeadPilot App loaded', 'color:#2563EB;font-weight:700;font-size:14px');
+  console.log('% ProspectorAI App loaded', 'color:#2563EB;font-weight:700;font-size:14px');
 });
 
 // ============================================================
