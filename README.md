@@ -1,11 +1,11 @@
-# LeadPilot – AI Sales Intelligence Platform
+# ProspectorAI – AI Sales Intelligence Platform
 
 A modern, AI-powered SaaS platform for finding, scoring, and engaging sales prospects with zero friction.
 
 ## 📁 Project Structure
 
 ```
-LeadPilot/
+ProspectorAI/
 ├── index.html              # Landing page & auth (Login, Register)
 ├── dashboard.html          # Main application dashboard
 │
