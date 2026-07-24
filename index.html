@@ -26,16 +26,15 @@
         ProspectorAI
       </div>
       <div class="flex gap-3 items-center">
-        <a href="#" class="text-sm font-medium" style="color:var(--gray-600)" onclick="scrollToSection('features'); return false;">Features</a>
-        <a href="#" class="text-sm font-medium" style="color:var(--gray-600)" onclick="scrollToSection('pricing'); return false;">Pricing</a>
-        <a href="#" class="text-sm font-medium" style="color:var(--gray-600)" onclick="scrollToSection('faq'); return false;">FAQ</a>
-        <button class="btn" onclick="goToLogin()">Log in</button>
-        <button class="btn" onclick="goToRegister()">Create account</button>
+        <a href="#" class="text-sm font-medium" style="color:var(--gray-600)" onclick="scrollToSection('features'); return false;" data-i18n="nav_features">Features</a>
+        <a href="#" class="text-sm font-medium" style="color:var(--gray-600)" onclick="scrollToSection('pricing'); return false;" data-i18n="nav_pricing">Pricing</a>
+        <a href="#" class="text-sm font-medium" style="color:var(--gray-600)" onclick="scrollToSection('faq'); return false;" data-i18n="nav_faq">FAQ</a>
+        <button class="btn" onclick="goToLogin()" data-i18n="nav_login">Log in</button>
+        <button class="btn" onclick="goToRegister()" data-i18n="nav_register">Create account</button>
         <div class="dropdown">
           <button class="btn btn-secondary btn-sm" onclick="toggleDropdown('lang-dd')">🌐 <span id="lang-label">EN</span></button>
           <div class="dropdown-menu" id="lang-dd">
             <div class="dropdown-item" onclick="setLang('en')">🇬🇧 English</div>
-            <div class="dropdown-item" onclick="setLang('cs')">🇨🇿 Čeština</div>
             <div class="dropdown-item" onclick="setLang('ru')">🇷🇺 Русский</div>
           </div>
         </div>
@@ -45,32 +44,32 @@
   <div class="landing-sections">
     <!-- HERO -->
     <div class="hero">
-      <div class="hero-badge">✨ <span>Powered by AI — trusted by 3,200+ companies</span></div>
-      <h1>Your AI<br><span>Sales Co-Pilot</span></h1>
-      <p>ProspectorAI automatically finds, scores and reaches out to your ideal prospects — so your team can focus on closing.</p>
+      <div class="hero-badge">✨ <span data-i18n="hero_badge">Powered by AI — trusted by 3,200+ companies</span></div>
+      <h1 data-i18n="hero_h1">Your AI<br><span>Sales Co-Pilot</span></h1>
+      <p data-i18n="hero_sub">ProspectorAI automatically finds, scores and reaches out to your ideal prospects — so your team can focus on closing.</p>
       <div class="hero-actions">
-        <button class="btn btn-primary" onclick="goToRegister()">Start Free Trial</button>
-        <button class="btn btn-secondary btn-lg" onclick="showDemoModal()">▶ Watch demo</button>
+        <button class="btn btn-primary" onclick="goToRegister()" data-i18n="hero_cta">Start Free Trial</button>
+        <button class="btn btn-secondary btn-lg" onclick="showDemoModal()" data-i18n="hero_demo">▶ Watch demo</button>
       </div>
       <div class="hero-stats">
-        <div class="hero-stat"><strong>3.2K+</strong><span>Companies</span></div>
-        <div class="hero-stat"><strong>1.8M</strong><span>Leads found</span></div>
-        <div class="hero-stat"><strong>34%</strong><span>Avg reply rate</span></div>
-        <div class="hero-stat"><strong>4.9★</strong><span>Rating</span></div>
+        <div class="hero-stat"><strong>3.2K+</strong><span data-i18n="stat_companies">Companies</span></div>
+        <div class="hero-stat"><strong>1.8M</strong><span data-i18n="stat_leads">Leads found</span></div>
+        <div class="hero-stat"><strong>34%</strong><span data-i18n="stat_reply">Avg reply rate</span></div>
+        <div class="hero-stat"><strong>4.9★</strong><span data-i18n="stat_rating">Rating</span></div>
       </div>
     </div>
     <div id="page-login" class="page">
     <div class="auth-container">
-        <h2>Log in</h2>
+        <h2 data-i18n="login_title">Log in</h2>
 
         <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password">
+        <input type="password" data-i18n-placeholder="password_placeholder" placeholder="Password">
 
-        <button class="btn btn-primary">
+        <button class="btn btn-primary" data-i18n="login_btn">
             Log in
         </button>
 
-        <p onclick="goToRegister()">
+        <p onclick="goToRegister()" data-i18n="login_no_account">
             Don't have an account? Register
         </p>
     </div>
@@ -79,16 +78,16 @@
 
 <div id="page-register" class="page">
     <div class="auth-container">
-        <h2>Create account</h2>
+        <h2 data-i18n="register_title">Create account</h2>
 
         <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password">
+        <input type="password" data-i18n-placeholder="password_placeholder" placeholder="Password">
 
-        <button class="btn btn-primary">
+        <button class="btn btn-primary" data-i18n="register_btn">
             Create account
         </button>
 
-        <p onclick="goToLogin()">
+        <p onclick="goToLogin()" data-i18n="register_have_account">
             Already have an account? Login
         </p>
     </div>
@@ -96,138 +95,138 @@
     <hr class="section-divider">
     <!-- FEATURES -->
     <div id="features" class="landing-section">
-      <div class="section-label">Features</div>
-      <div class="section-title">Everything you need to grow outbound</div>
+      <div class="section-label" data-i18n="features_label">Features</div>
+      <div class="section-title" data-i18n="features_title">Everything you need to grow outbound</div>
       <div class="features-grid">
         <div class="feature-card">
           <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
-          <h3>AI Lead Finder</h3>
-          <p>Discover thousands of qualified prospects from 200M+ company database instantly.</p>
+          <h3 data-i18n="f1_title">AI Lead Finder</h3>
+          <p data-i18n="f1_desc">Discover thousands of qualified prospects from 200M+ company database instantly.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-5.7-2.26 3.37 3.37 0 0 0-5.7 2.26v3.87M9 19c5 1.5 5-2.5 7-3"/></svg></div>
-          <h3>AI Lead Scoring</h3>
-          <p>Every lead gets an intelligent score 0–100 based on fit, intent and digital presence.</p>
+          <h3 data-i18n="f2_title">AI Lead Scoring</h3>
+          <p data-i18n="f2_desc">Every lead gets an intelligent score 0–100 based on fit, intent and digital presence.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><line x1="4" y1="10" x2="20" y2="10"/></svg></div>
-          <h3>Email Generator</h3>
-          <p>Generate hyper-personalized cold emails, follow-ups and LinkedIn messages in seconds.</p>
+          <h3 data-i18n="f3_title">Email Generator</h3>
+          <p data-i18n="f3_desc">Generate hyper-personalized cold emails, follow-ups and LinkedIn messages in seconds.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-          <h3>Campaign Automation</h3>
-          <p>Schedule and automate multi-step outreach campaigns with smart sending logic.</p>
+          <h3 data-i18n="f4_title">Campaign Automation</h3>
+          <p data-i18n="f4_desc">Schedule and automate multi-step outreach campaigns with smart sending logic.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
-          <h3>Analytics Dashboard</h3>
-          <p>Track opens, replies, meetings and revenue with beautiful real-time analytics.</p>
+          <h3 data-i18n="f5_title">Analytics Dashboard</h3>
+          <p data-i18n="f5_desc">Track opens, replies, meetings and revenue with beautiful real-time analytics.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-          <h3>Built-in CRM</h3>
-          <p>Manage deals with drag-and-drop Kanban boards from first contact to closed won.</p>
+          <h3 data-i18n="f6_title">Built-in CRM</h3>
+          <p data-i18n="f6_desc">Manage deals with drag-and-drop Kanban boards from first contact to closed won.</p>
         </div>
       </div>
     </div>
     <hr class="section-divider">
     <!-- HOW IT WORKS -->
     <div class="landing-section" style="text-align:center">
-      <div class="section-label">How it works</div>
-      <div class="section-title">Three steps to more meetings</div>
+      <div class="section-label" data-i18n="how_label">How it works</div>
+      <div class="section-title" data-i18n="how_title">Three steps to more meetings</div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;text-align:left">
         <div style="padding:24px;background:var(--gray-50);border-radius:var(--radius);border:1px solid var(--gray-200)">
           <div style="width:36px;height:36px;background:var(--blue);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;margin-bottom:16px">1</div>
-          <h3 style="font-size:15px;font-weight:600;margin-bottom:6px">Tell AI what you need</h3>
-          <p style="font-size:13px;color:var(--gray-500)">Chat with your AI co-pilot: "Find 50 SaaS companies in Berlin with under 100 employees"</p>
+          <h3 style="font-size:15px;font-weight:600;margin-bottom:6px" data-i18n="how1_title">Tell AI what you need</h3>
+          <p style="font-size:13px;color:var(--gray-500)" data-i18n="how1_desc">Chat with your AI co-pilot: "Find 50 SaaS companies in Berlin with under 100 employees"</p>
         </div>
         <div style="padding:24px;background:var(--gray-50);border-radius:var(--radius);border:1px solid var(--gray-200)">
           <div style="width:36px;height:36px;background:var(--blue);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;margin-bottom:16px">2</div>
-          <h3 style="font-size:15px;font-weight:600;margin-bottom:6px">AI scores and enriches</h3>
-          <p style="font-size:13px;color:var(--gray-500)">Every lead is automatically scored, enriched with contacts, and ready for outreach.</p>
+          <h3 style="font-size:15px;font-weight:600;margin-bottom:6px" data-i18n="how2_title">AI scores and enriches</h3>
+          <p style="font-size:13px;color:var(--gray-500)" data-i18n="how2_desc">Every lead is automatically scored, enriched with contacts, and ready for outreach.</p>
         </div>
         <div style="padding:24px;background:var(--gray-50);border-radius:var(--radius);border:1px solid var(--gray-200)">
           <div style="width:36px;height:36px;background:var(--blue);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;margin-bottom:16px">3</div>
-          <h3 style="font-size:15px;font-weight:600;margin-bottom:6px">Launch & track</h3>
-          <p style="font-size:13px;color:var(--gray-500)">One-click to send personalized emails and watch your pipeline fill up in real time.</p>
+          <h3 style="font-size:15px;font-weight:600;margin-bottom:6px" data-i18n="how3_title">Launch &amp; track</h3>
+          <p style="font-size:13px;color:var(--gray-500)" data-i18n="how3_desc">One-click to send personalized emails and watch your pipeline fill up in real time.</p>
         </div>
       </div>
     </div>
     <hr class="section-divider">
     <!-- PRICING -->
     <div id="pricing" class="landing-section">
-      <div class="section-label">Pricing</div>
-      <div class="section-title">Simple, transparent pricing</div>
+      <div class="section-label" data-i18n="pricing_label">Pricing</div>
+      <div class="section-title" data-i18n="pricing_title">Simple, transparent pricing</div>
       <div class="pricing-grid">
         <div class="pricing-card">
-          <div class="font-semibold text-lg">Starter</div>
+          <div class="font-semibold text-lg" data-i18n="plan_starter">Starter</div>
           <div class="price mt-2">€29<span>/mo</span></div>
           <ul class="pricing-features">
-            <li>500 leads/month</li>
-            <li>2 campaigns</li>
-            <li>AI assistant</li>
-            <li>Email generator</li>
+            <li data-i18n="s_f1">500 leads/month</li>
+            <li data-i18n="s_f2">2 campaigns</li>
+            <li data-i18n="s_f3">AI assistant</li>
+            <li data-i18n="s_f4">Email generator</li>
           </ul>
-          <button class="btn btn-secondary w-full" onclick="goToRegister()">Get started</button>
+          <button class="btn btn-secondary w-full" onclick="goToRegister()" data-i18n="plan_cta">Get started</button>
         </div>
         <div class="pricing-card featured">
           <div style="display:flex;align-items:center;gap:8px">
-            <div class="font-semibold text-lg">Pro</div>
-            <span class="badge badge-blue">Most popular</span>
+            <div class="font-semibold text-lg" data-i18n="plan_pro">Pro</div>
+            <span class="badge badge-blue" data-i18n="most_popular">Most popular</span>
           </div>
           <div class="price mt-2">€59<span>/mo</span></div>
           <ul class="pricing-features">
-            <li>5,000 leads/month</li>
-            <li>Unlimited campaigns</li>
-            <li>Priority AI</li>
-            <li>Full analytics</li>
-            <li>CRM integration</li>
+            <li data-i18n="p_f1">5,000 leads/month</li>
+            <li data-i18n="p_f2">Unlimited campaigns</li>
+            <li data-i18n="p_f3">Priority AI</li>
+            <li data-i18n="p_f4">Full analytics</li>
+            <li data-i18n="p_f5">CRM integration</li>
           </ul>
-          <button class="btn btn-primary w-full" onclick="goToRegister()">Get started</button>
+          <button class="btn btn-primary w-full" onclick="goToRegister()" data-i18n="plan_cta">Get started</button>
         </div>
         <div class="pricing-card">
-          <div class="font-semibold text-lg">Agency</div>
+          <div class="font-semibold text-lg" data-i18n="plan_agency">Agency</div>
           <div class="price mt-2">€99<span>/mo</span></div>
           <ul class="pricing-features">
-            <li>Unlimited leads</li>
-            <li>5 workspaces</li>
-            <li>White label</li>
-            <li>API access</li>
-            <li>Dedicated support</li>
+            <li data-i18n="a_f1">Unlimited leads</li>
+            <li data-i18n="a_f2">5 workspaces</li>
+            <li data-i18n="a_f3">White label</li>
+            <li data-i18n="a_f4">API access</li>
+            <li data-i18n="a_f5">Dedicated support</li>
           </ul>
-          <button class="btn btn-secondary w-full" onclick="goToRegister()">Get started</button>
+          <button class="btn btn-secondary w-full" onclick="goToRegister()" data-i18n="plan_cta">Get started</button>
         </div>
       </div>
     </div>
     <hr class="section-divider">
     <!-- TESTIMONIALS -->
     <div class="landing-section">
-      <div class="section-label">Testimonials</div>
-      <div class="section-title">Loved by sales teams</div>
+      <div class="section-label" data-i18n="testimonials_label">Testimonials</div>
+      <div class="section-title" data-i18n="testimonials_title">Loved by sales teams</div>
       <div class="testimonials-grid">
         <div class="testimonial">
           <div style="color:var(--yellow);font-size:14px;margin-bottom:10px">★★★★★</div>
-          <p>"ProspectorAI found 200 qualified leads in 10 minutes. Our reply rate jumped from 8% to 34% in the first month. Game changer."</p>
+          <p data-i18n="t1_text">"ProspectorAI found 200 qualified leads in 10 minutes. Our reply rate jumped from 8% to 34% in the first month. Game changer."</p>
           <div class="testimonial-author">
             <div class="avatar" style="background:#7C3AED">MK</div>
-            <div><strong>Martin Koch</strong><span>VP Sales, TechScale GmbH</span></div>
+            <div><strong>Martin Koch</strong><span data-i18n="t1_role">VP Sales, TechScale GmbH</span></div>
           </div>
         </div>
         <div class="testimonial">
           <div style="color:var(--yellow);font-size:14px;margin-bottom:10px">★★★★★</div>
-          <p>"The AI assistant is incredible. I just type what I need and it does everything — finding leads, scoring them, writing emails. Saves 4 hours a day."</p>
+          <p data-i18n="t2_text">"The AI assistant is incredible. I just type what I need and it does everything — finding leads, scoring them, writing emails. Saves 4 hours a day."</p>
           <div class="testimonial-author">
             <div class="avatar" style="background:#059669">AL</div>
-            <div><strong>Anna Lorenz</strong><span>Founder, GrowthBox</span></div>
+            <div><strong>Anna Lorenz</strong><span data-i18n="t2_role">Founder, GrowthBox</span></div>
           </div>
         </div>
         <div class="testimonial">
           <div style="color:var(--yellow);font-size:14px;margin-bottom:10px">★★★★★</div>
-          <p>"We scaled from 3 to 45 booked demos per month in 90 days. The lead quality is exceptional and the automation is rock solid."</p>
+          <p data-i18n="t3_text">"We scaled from 3 to 45 booked demos per month in 90 days. The lead quality is exceptional and the automation is rock solid."</p>
           <div class="testimonial-author">
             <div class="avatar" style="background:#DC2626">JP</div>
-            <div><strong>Jakub Procházka</strong><span>CEO, SalesForge</span></div>
+            <div><strong>Jakub Procházka</strong><span data-i18n="t3_role">CEO, SalesForge</span></div>
           </div>
         </div>
       </div>
@@ -235,24 +234,24 @@
     <hr class="section-divider">
     <!-- FAQ -->
     <div id="faq" class="landing-section">
-      <div class="section-label">FAQ</div>
-      <div class="section-title">Common questions</div>
+      <div class="section-label" data-i18n="faq_label">FAQ</div>
+      <div class="section-title" data-i18n="faq_title">Common questions</div>
       <div class="faq-list">
         <div class="faq-item open">
-          <div class="faq-q" onclick="toggleFaq(this)"><span>How does ProspectorAI find leads?</span><span>▾</span></div>
-          <div class="faq-a">ProspectorAI uses AI to search across 200M+ company records, LinkedIn data, and web signals to find companies that match your ideal customer profile. You set the criteria once, and we handle the rest.</div>
+          <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq1_q">How does ProspectorAI find leads?</span><span>▾</span></div>
+          <div class="faq-a" data-i18n="faq1_a">ProspectorAI uses AI to search across 200M+ company records, LinkedIn data, and web signals to find companies that match your ideal customer profile. You set the criteria once, and we handle the rest.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)"><span>Is there a free trial?</span><span>▾</span></div>
-          <div class="faq-a">Yes! Every new account gets a 14-day free trial with full access to all Pro features. No credit card required.</div>
+          <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq2_q">Is there a free trial?</span><span>▾</span></div>
+          <div class="faq-a" data-i18n="faq2_a">Yes! Every new account gets a 14-day free trial with full access to all Pro features. No credit card required.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)"><span>How accurate is the AI lead scoring?</span><span>▾</span></div>
-          <div class="faq-a">Our AI scoring model is trained on millions of sales outcomes and achieves 89% accuracy in predicting which leads will convert. Scores consider website activity, company signals, and market data.</div>
+          <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq3_q">How accurate is the AI lead scoring?</span><span>▾</span></div>
+          <div class="faq-a" data-i18n="faq3_a">Our AI scoring model is trained on millions of sales outcomes and achieves 89% accuracy in predicting which leads will convert. Scores consider website activity, company signals, and market data.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)"><span>Can I cancel anytime?</span><span>▾</span></div>
-          <div class="faq-a">Absolutely. No contracts, no cancellation fees. Cancel anytime directly from your billing settings.</div>
+          <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq4_q">Can I cancel anytime?</span><span>▾</span></div>
+          <div class="faq-a" data-i18n="faq4_a">Absolutely. No contracts, no cancellation fees. Cancel anytime directly from your billing settings.</div>
         </div>
       </div>
     </div>
@@ -262,24 +261,24 @@
         <div class="footer-grid">
           <div class="footer-brand">
             <div class="logo" style="color:white"><div class="logo-mark"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L13 5V11L8 14L3 11V5L8 2Z" fill="white"/></svg></div>ProspectorAI</div>
-            <p>Your AI Sales Co-Pilot. Find, score and close more deals with the power of AI.</p>
+            <p data-i18n="footer_brand_desc">Your AI Sales Co-Pilot. Find, score and close more deals with the power of AI.</p>
           </div>
           <div class="footer-col">
-            <h4>Product</h4>
-            <a onclick="scrollToSection('features')">Features</a><a onclick="scrollToSection('pricing')">Pricing</a><a>Changelog</a><a>Roadmap</a>
+            <h4 data-i18n="footer_product">Product</h4>
+            <a onclick="scrollToSection('features')" data-i18n="nav_features">Features</a><a onclick="scrollToSection('pricing')" data-i18n="nav_pricing">Pricing</a><a data-i18n="footer_changelog">Changelog</a><a data-i18n="footer_roadmap">Roadmap</a>
           </div>
           <div class="footer-col">
-            <h4>Company</h4>
-            <a>About</a><a>Blog</a><a>Careers</a><a>Contact</a>
+            <h4 data-i18n="footer_company">Company</h4>
+            <a data-i18n="footer_about">About</a><a data-i18n="footer_blog">Blog</a><a data-i18n="footer_careers">Careers</a><a data-i18n="footer_contact">Contact</a>
           </div>
           <div class="footer-col">
-            <h4>Legal</h4>
-            <a>Privacy</a><a>Terms</a><a>GDPR</a><a>Security</a>
+            <h4 data-i18n="footer_legal">Legal</h4>
+            <a data-i18n="footer_privacy">Privacy</a><a data-i18n="footer_terms">Terms</a><a>GDPR</a><a data-i18n="footer_security">Security</a>
           </div>
         </div>
         <div class="footer-bottom">
-          <span>© 2025 ProspectorAI. All rights reserved.</span>
-          <span>🇪🇺 Made in Europe</span>
+          <span data-i18n="footer_copy">© 2025 ProspectorAI. All rights reserved.</span>
+          <span data-i18n="footer_made">🇪🇺 Made in Europe</span>
         </div>
       </div>
     </footer>
@@ -290,56 +289,56 @@
 <div id="page-login" class="auth-page hidden">
   <div class="auth-card">
     <div class="auth-logo"><div class="logo" onclick="showPage('landing')"><div class="logo-mark"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L13 5V11L8 14L3 11V5L8 2Z" fill="white"/></svg></div></div></div>
-    <div class="auth-title">Welcome back</div>
-    <div class="auth-sub">Sign in to your account</div>
+    <div class="auth-title" data-i18n="login_title">Welcome back</div>
+    <div class="auth-sub" data-i18n="login_sub">Sign in to your account</div>
     <div class="form-group">
-      <label class="label">Email</label>
-      <input type="email" class="input" placeholder="you@company.com" id="login-email" value="demo@ProspectorAI.io">
+      <label class="label" data-i18n="label_email">Email</label>
+      <input type="email" class="input" data-i18n-placeholder="email_placeholder" placeholder="you@company.com" id="login-email" value="demo@ProspectorAI.io">
     </div>
     <div class="form-group">
       <div style="display:flex;justify-content:space-between;margin-bottom:5px">
-        <label class="label" style="margin:0">Password</label>
-        <a style="font-size:12px;color:var(--blue);cursor:pointer" onclick="showPage('forgot')">Forgot password?</a>
+        <label class="label" style="margin:0" data-i18n="label_password">Password</label>
+        <a style="font-size:12px;color:var(--blue);cursor:pointer" onclick="showPage('forgot')" data-i18n="forgot_link">Forgot password?</a>
       </div>
-      <input type="password" class="input" placeholder="••••••••" id="login-pass" value="demo1234">
+      <input type="password" class="input" data-i18n-placeholder="password_placeholder" placeholder="••••••••" id="login-pass" value="demo1234">
     </div>
-    <button class="btn btn-primary w-full" onclick="goToDashboard()">Sign in</button>
-    <div class="auth-divider"><span>or continue with</span></div>
+    <button class="btn btn-primary w-full" onclick="goToDashboard()" data-i18n="login_btn">Sign in</button>
+    <div class="auth-divider"><span data-i18n="or_continue">or continue with</span></div>
     <div class="auth-social">
       <div class="social-btn" onclick="goToDashboard()"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/></svg></div>
       <div class="social-btn" onclick="goToDashboard()"><svg width="16" height="16" viewBox="0 0 24 24" fill="#0077B5"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555v-11h3.564v11zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></div>
     </div>
-    <div class="auth-link">Don't have an account? <a onclick="showPage('register')" style="color:var(--blue);cursor:pointer">Sign up</a></div>
-    <div class="auth-link" style="margin-top:8px;font-size:11px;color:var(--gray-400)">Demo: demo@ProspectorAI.io / demo1234</div>
+    <div class="auth-link" data-i18n="no_account">Don't have an account? <a onclick="showPage('register')" style="color:var(--blue);cursor:pointer" data-i18n="register_link">Sign up</a></div>
+    <div class="auth-link" style="margin-top:8px;font-size:11px;color:var(--gray-400)" data-i18n="demo_hint">Demo: demo@ProspectorAI.io / demo1234</div>
   </div>
 </div>
 
 <div id="page-register" class="auth-page hidden">
   <div class="auth-card">
     <div class="auth-logo"><div class="logo" onclick="showPage('landing')"><div class="logo-mark"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L13 5V11L8 14L3 11V5L8 2Z" fill="white"/></svg></div></div></div>
-    <div class="auth-title">Create your account</div>
-    <div class="auth-sub">14-day free trial, no credit card required</div>
+    <div class="auth-title" data-i18n="register_title">Create your account</div>
+    <div class="auth-sub" data-i18n="register_sub">14-day free trial, no credit card required</div>
     <div class="grid-2">
-      <div class="form-group"><label class="label">First name</label><input type="text" class="input" placeholder="John" value="Alex"></div>
-      <div class="form-group"><label class="label">Last name</label><input type="text" class="input" placeholder="Smith" value="Johnson"></div>
+      <div class="form-group"><label class="label" data-i18n="label_first_name">First name</label><input type="text" class="input" data-i18n-placeholder="first_name_placeholder" placeholder="John" value="Alex"></div>
+      <div class="form-group"><label class="label" data-i18n="label_last_name">Last name</label><input type="text" class="input" data-i18n-placeholder="last_name_placeholder" placeholder="Smith" value="Johnson"></div>
     </div>
-    <div class="form-group"><label class="label">Work email</label><input type="email" class="input" placeholder="you@company.com" value="alex@company.com"></div>
-    <div class="form-group"><label class="label">Company</label><input type="text" class="input" placeholder="Acme Inc." value="Acme Inc."></div>
-    <div class="form-group"><label class="label">Password</label><input type="password" class="input" placeholder="Min. 8 characters" value="demo1234"></div>
-    <button class="btn btn-primary w-full" onclick="goToDashboard()">Create account</button>
-    <div class="auth-link">Already have an account? <a onclick="showPage('login')" style="color:var(--blue);cursor:pointer">Sign in</a></div>
-    <div style="font-size:11px;color:var(--gray-400);text-align:center;margin-top:12px">By creating an account you agree to our <a style="color:var(--blue);cursor:pointer">Terms</a> and <a style="color:var(--blue);cursor:pointer">Privacy</a></div>
+    <div class="form-group"><label class="label" data-i18n="label_work_email">Work email</label><input type="email" class="input" data-i18n-placeholder="email_placeholder" placeholder="you@company.com" value="alex@company.com"></div>
+    <div class="form-group"><label class="label" data-i18n="label_company">Company</label><input type="text" class="input" data-i18n-placeholder="company_placeholder" placeholder="Acme Inc." value="Acme Inc."></div>
+    <div class="form-group"><label class="label" data-i18n="label_password">Password</label><input type="password" class="input" data-i18n-placeholder="min_password_placeholder" placeholder="Min. 8 characters" value="demo1234"></div>
+    <button class="btn btn-primary w-full" onclick="goToDashboard()" data-i18n="register_btn">Create account</button>
+    <div class="auth-link" data-i18n="have_account">Already have an account? <a onclick="showPage('login')" style="color:var(--blue);cursor:pointer" data-i18n="login_link">Sign in</a></div>
+    <div style="font-size:11px;color:var(--gray-400);text-align:center;margin-top:12px" data-i18n="register_terms">By creating an account you agree to our <a style="color:var(--blue);cursor:pointer" data-i18n="terms_link">Terms</a> and <a style="color:var(--blue);cursor:pointer" data-i18n="privacy_link">Privacy</a></div>
   </div>
 </div>
 
 <div id="page-forgot" class="auth-page hidden">
   <div class="auth-card">
     <div class="auth-logo"><div class="logo" onclick="showPage('landing')"><div class="logo-mark"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L13 5V11L8 14L3 11V5L8 2Z" fill="white"/></svg></div></div></div>
-    <div class="auth-title">Reset password</div>
-    <div class="auth-sub">Enter your email and we'll send you a reset link.</div>
-    <div class="form-group"><label class="label">Email</label><input type="email" class="input" placeholder="you@company.com"></div>
-    <button class="btn btn-primary w-full" onclick="showPage('landing'); showToast('Reset link sent! Check your inbox.', 'success')">Send reset link</button>
-    <div class="auth-link"><a onclick="showPage('login')" style="color:var(--blue);cursor:pointer">← Back to sign in</a></div>
+    <div class="auth-title" data-i18n="forgot_title">Reset password</div>
+    <div class="auth-sub" data-i18n="forgot_sub">Enter your email and we'll send you a reset link.</div>
+    <div class="form-group"><label class="label" data-i18n="label_email">Email</label><input type="email" class="input" data-i18n-placeholder="email_placeholder" placeholder="you@company.com"></div>
+    <button class="btn btn-primary w-full" onclick="showPage('landing'); showToast('Reset link sent! Check your inbox.', 'success')" data-i18n="forgot_btn">Send reset link</button>
+    <div class="auth-link"><a onclick="showPage('login')" style="color:var(--blue);cursor:pointer" data-i18n="back_to_login">← Back to sign in</a></div>
   </div>
 </div>
 
@@ -348,5 +347,389 @@
 <div class="toast-container" id="toast-container"></div>
 
 <script src="js/app.js"></script>
+
+<!-- ============================================================
+     I18N — Language Switcher
+     Hooks into the existing setLang() function.
+     Saves choice to localStorage. Applies on every page load.
+     ============================================================ -->
+<script>
+(function () {
+
+  /* ── 1. Translation dictionaries ─────────────────────────── */
+  var TRANSLATIONS = {
+
+    en: {
+      /* Nav */
+      nav_features:   'Features',
+      nav_pricing:    'Pricing',
+      nav_faq:        'FAQ',
+      nav_login:      'Log in',
+      nav_register:   'Create account',
+
+      /* Hero */
+      hero_badge:     'Powered by AI — trusted by 3,200+ companies',
+      hero_h1:        'Your AI<br><span>Sales Co-Pilot</span>',
+      hero_sub:       'ProspectorAI automatically finds, scores and reaches out to your ideal prospects — so your team can focus on closing.',
+      hero_cta:       'Start Free Trial',
+      hero_demo:      '▶ Watch demo',
+
+      /* Stats */
+      stat_companies: 'Companies',
+      stat_leads:     'Leads found',
+      stat_reply:     'Avg reply rate',
+      stat_rating:    'Rating',
+
+      /* Inline auth forms */
+      login_title:    'Log in',
+      login_btn:      'Log in',
+      login_no_account: "Don't have an account? Register",
+      register_title: 'Create account',
+      register_btn:   'Create account',
+      register_have_account: 'Already have an account? Login',
+      password_placeholder: 'Password',
+
+      /* Features section */
+      features_label: 'Features',
+      features_title: 'Everything you need to grow outbound',
+      f1_title: 'AI Lead Finder',
+      f1_desc:  'Discover thousands of qualified prospects from 200M+ company database instantly.',
+      f2_title: 'AI Lead Scoring',
+      f2_desc:  'Every lead gets an intelligent score 0–100 based on fit, intent and digital presence.',
+      f3_title: 'Email Generator',
+      f3_desc:  'Generate hyper-personalized cold emails, follow-ups and LinkedIn messages in seconds.',
+      f4_title: 'Campaign Automation',
+      f4_desc:  'Schedule and automate multi-step outreach campaigns with smart sending logic.',
+      f5_title: 'Analytics Dashboard',
+      f5_desc:  'Track opens, replies, meetings and revenue with beautiful real-time analytics.',
+      f6_title: 'Built-in CRM',
+      f6_desc:  'Manage deals with drag-and-drop Kanban boards from first contact to closed won.',
+
+      /* How it works */
+      how_label:  'How it works',
+      how_title:  'Three steps to more meetings',
+      how1_title: 'Tell AI what you need',
+      how1_desc:  'Chat with your AI co-pilot: "Find 50 SaaS companies in Berlin with under 100 employees"',
+      how2_title: 'AI scores and enriches',
+      how2_desc:  'Every lead is automatically scored, enriched with contacts, and ready for outreach.',
+      how3_title: 'Launch & track',
+      how3_desc:  'One-click to send personalized emails and watch your pipeline fill up in real time.',
+
+      /* Pricing */
+      pricing_label:  'Pricing',
+      pricing_title:  'Simple, transparent pricing',
+      plan_starter:   'Starter',
+      plan_pro:       'Pro',
+      plan_agency:    'Agency',
+      plan_cta:       'Get started',
+      most_popular:   'Most popular',
+      s_f1: '500 leads/month',
+      s_f2: '2 campaigns',
+      s_f3: 'AI assistant',
+      s_f4: 'Email generator',
+      p_f1: '5,000 leads/month',
+      p_f2: 'Unlimited campaigns',
+      p_f3: 'Priority AI',
+      p_f4: 'Full analytics',
+      p_f5: 'CRM integration',
+      a_f1: 'Unlimited leads',
+      a_f2: '5 workspaces',
+      a_f3: 'White label',
+      a_f4: 'API access',
+      a_f5: 'Dedicated support',
+
+      /* Testimonials */
+      testimonials_label: 'Testimonials',
+      testimonials_title: 'Loved by sales teams',
+      t1_text: '"ProspectorAI found 200 qualified leads in 10 minutes. Our reply rate jumped from 8% to 34% in the first month. Game changer."',
+      t1_role: 'VP Sales, TechScale GmbH',
+      t2_text: '"The AI assistant is incredible. I just type what I need and it does everything — finding leads, scoring them, writing emails. Saves 4 hours a day."',
+      t2_role: 'Founder, GrowthBox',
+      t3_text: '"We scaled from 3 to 45 booked demos per month in 90 days. The lead quality is exceptional and the automation is rock solid."',
+      t3_role: 'CEO, SalesForge',
+
+      /* FAQ */
+      faq_label: 'FAQ',
+      faq_title: 'Common questions',
+      faq1_q: 'How does ProspectorAI find leads?',
+      faq1_a: 'ProspectorAI uses AI to search across 200M+ company records, LinkedIn data, and web signals to find companies that match your ideal customer profile. You set the criteria once, and we handle the rest.',
+      faq2_q: 'Is there a free trial?',
+      faq2_a: 'Yes! Every new account gets a 14-day free trial with full access to all Pro features. No credit card required.',
+      faq3_q: 'How accurate is the AI lead scoring?',
+      faq3_a: 'Our AI scoring model is trained on millions of sales outcomes and achieves 89% accuracy in predicting which leads will convert. Scores consider website activity, company signals, and market data.',
+      faq4_q: 'Can I cancel anytime?',
+      faq4_a: 'Absolutely. No contracts, no cancellation fees. Cancel anytime directly from your billing settings.',
+
+      /* Footer */
+      footer_brand_desc: 'Your AI Sales Co-Pilot. Find, score and close more deals with the power of AI.',
+      footer_product:   'Product',
+      footer_changelog: 'Changelog',
+      footer_roadmap:   'Roadmap',
+      footer_company:   'Company',
+      footer_about:     'About',
+      footer_blog:      'Blog',
+      footer_careers:   'Careers',
+      footer_contact:   'Contact',
+      footer_legal:     'Legal',
+      footer_privacy:   'Privacy',
+      footer_terms:     'Terms',
+      footer_security:  'Security',
+      footer_copy:      '© 2025 ProspectorAI. All rights reserved.',
+      footer_made:      '🇪🇺 Made in Europe',
+
+      /* Auth pages (full) */
+      login_sub:   'Sign in to your account',
+      label_email: 'Email',
+      label_password: 'Password',
+      label_work_email: 'Work email',
+      label_first_name: 'First name',
+      label_last_name:  'Last name',
+      label_company:    'Company',
+      forgot_link:  'Forgot password?',
+      login_btn:    'Sign in',
+      or_continue:  'or continue with',
+      no_account:   "Don't have an account?",
+      register_link:'Sign up',
+      demo_hint:    'Demo: demo@ProspectorAI.io / demo1234',
+      register_sub: '14-day free trial, no credit card required',
+      min_password_placeholder: 'Min. 8 characters',
+      first_name_placeholder: 'John',
+      last_name_placeholder:  'Smith',
+      email_placeholder:      'you@company.com',
+      company_placeholder:    'Acme Inc.',
+      have_account:  'Already have an account?',
+      login_link:    'Sign in',
+      register_terms:'By creating an account you agree to our',
+      terms_link:    'Terms',
+      privacy_link:  'Privacy',
+      forgot_title:  'Reset password',
+      forgot_sub:    "Enter your email and we'll send you a reset link.",
+      forgot_btn:    'Send reset link',
+      back_to_login: '← Back to sign in',
+    },
+
+    ru: {
+      /* Nav */
+      nav_features:   'Возможности',
+      nav_pricing:    'Цены',
+      nav_faq:        'FAQ',
+      nav_login:      'Войти',
+      nav_register:   'Создать аккаунт',
+
+      /* Hero */
+      hero_badge:     'На базе ИИ — доверяют 3 200+ компаний',
+      hero_h1:        'Ваш ИИ<br><span>Помощник по продажам</span>',
+      hero_sub:       'ProspectorAI автоматически находит, оценивает и связывается с вашими идеальными клиентами — чтобы ваша команда сосредоточилась на закрытии сделок.',
+      hero_cta:       'Начать бесплатно',
+      hero_demo:      '▶ Смотреть демо',
+
+      /* Stats */
+      stat_companies: 'Компании',
+      stat_leads:     'Найдено лидов',
+      stat_reply:     'Средний отклик',
+      stat_rating:    'Рейтинг',
+
+      /* Inline auth forms */
+      login_title:    'Войти',
+      login_btn:      'Войти',
+      login_no_account: 'Нет аккаунта? Зарегистрироваться',
+      register_title: 'Создать аккаунт',
+      register_btn:   'Создать аккаунт',
+      register_have_account: 'Уже есть аккаунт? Войти',
+      password_placeholder: 'Пароль',
+
+      /* Features section */
+      features_label: 'Возможности',
+      features_title: 'Всё необходимое для исходящих продаж',
+      f1_title: 'Поиск лидов с ИИ',
+      f1_desc:  'Мгновенно находите тысячи квалифицированных клиентов из базы 200M+ компаний.',
+      f2_title: 'Оценка лидов с ИИ',
+      f2_desc:  'Каждый лид получает интеллектуальную оценку от 0 до 100 на основе соответствия, намерений и цифрового присутствия.',
+      f3_title: 'Генератор писем',
+      f3_desc:  'Создавайте гиперперсонализированные холодные письма, повторные сообщения и сообщения в LinkedIn за секунды.',
+      f4_title: 'Автоматизация кампаний',
+      f4_desc:  'Планируйте и автоматизируйте многоэтапные аутрич-кампании со смарт-логикой отправки.',
+      f5_title: 'Аналитика',
+      f5_desc:  'Отслеживайте открытия, ответы, встречи и выручку с красивой аналитикой в реальном времени.',
+      f6_title: 'Встроенная CRM',
+      f6_desc:  'Управляйте сделками с помощью Kanban-досок с перетаскиванием — от первого контакта до закрытия.',
+
+      /* How it works */
+      how_label:  'Как это работает',
+      how_title:  'Три шага к большему количеству встреч',
+      how1_title: 'Скажите ИИ, что вам нужно',
+      how1_desc:  'Общайтесь с ИИ-копилотом: «Найди 50 SaaS-компаний в Берлине с менее чем 100 сотрудниками»',
+      how2_title: 'ИИ оценивает и обогащает',
+      how2_desc:  'Каждый лид автоматически оценивается, обогащается контактами и готов к работе.',
+      how3_title: 'Запустите и отслеживайте',
+      how3_desc:  'Одним кликом отправляйте персонализированные письма и наблюдайте, как заполняется ваша воронка.',
+
+      /* Pricing */
+      pricing_label:  'Цены',
+      pricing_title:  'Простые и прозрачные цены',
+      plan_starter:   'Стартер',
+      plan_pro:       'Про',
+      plan_agency:    'Агентство',
+      plan_cta:       'Начать',
+      most_popular:   'Самый популярный',
+      s_f1: '500 лидов в месяц',
+      s_f2: '2 кампании',
+      s_f3: 'ИИ-ассистент',
+      s_f4: 'Генератор писем',
+      p_f1: '5 000 лидов в месяц',
+      p_f2: 'Неограниченные кампании',
+      p_f3: 'Приоритетный ИИ',
+      p_f4: 'Полная аналитика',
+      p_f5: 'Интеграция CRM',
+      a_f1: 'Неограниченные лиды',
+      a_f2: '5 рабочих пространств',
+      a_f3: 'White label',
+      a_f4: 'Доступ к API',
+      a_f5: 'Выделенная поддержка',
+
+      /* Testimonials */
+      testimonials_label: 'Отзывы',
+      testimonials_title: 'Любимый инструмент отделов продаж',
+      t1_text: '«ProspectorAI нашёл 200 квалифицированных лидов за 10 минут. Наш показатель ответов вырос с 8% до 34% в первый месяц. Меняет правила игры.»',
+      t1_role: 'VP Sales, TechScale GmbH',
+      t2_text: '«ИИ-ассистент невероятен. Я просто пишу, что мне нужно, и он делает всё — находит лидов, оценивает их, пишет письма. Экономит 4 часа в день.»',
+      t2_role: 'Основатель, GrowthBox',
+      t3_text: '«За 90 дней мы выросли с 3 до 45 забронированных демо в месяц. Качество лидов исключительное, а автоматизация — надёжная.»',
+      t3_role: 'CEO, SalesForge',
+
+      /* FAQ */
+      faq_label: 'FAQ',
+      faq_title: 'Частые вопросы',
+      faq1_q: 'Как ProspectorAI находит лидов?',
+      faq1_a: 'ProspectorAI использует ИИ для поиска по 200M+ записям компаний, данным LinkedIn и веб-сигналам, чтобы найти компании, соответствующие вашему идеальному профилю клиента. Вы задаёте критерии один раз, а мы берём на себя остальное.',
+      faq2_q: 'Есть ли бесплатный пробный период?',
+      faq2_a: 'Да! Каждый новый аккаунт получает 14-дневный пробный период с полным доступом ко всем функциям Pro. Кредитная карта не требуется.',
+      faq3_q: 'Насколько точна оценка лидов с помощью ИИ?',
+      faq3_a: 'Наша модель ИИ обучена на миллионах результатов продаж и достигает точности 89% в предсказании конверсии лидов. Оценки учитывают активность на сайте, сигналы компании и рыночные данные.',
+      faq4_q: 'Можно ли отменить подписку в любое время?',
+      faq4_a: 'Абсолютно. Никаких контрактов и штрафов за отмену. Отмените в любое время прямо из настроек тарификации.',
+
+      /* Footer */
+      footer_brand_desc: 'Ваш ИИ-помощник по продажам. Находите, оценивайте и закрывайте больше сделок с помощью ИИ.',
+      footer_product:   'Продукт',
+      footer_changelog: 'История изменений',
+      footer_roadmap:   'Дорожная карта',
+      footer_company:   'Компания',
+      footer_about:     'О нас',
+      footer_blog:      'Блог',
+      footer_careers:   'Карьера',
+      footer_contact:   'Контакты',
+      footer_legal:     'Правовая информация',
+      footer_privacy:   'Конфиденциальность',
+      footer_terms:     'Условия',
+      footer_security:  'Безопасность',
+      footer_copy:      '© 2025 ProspectorAI. Все права защищены.',
+      footer_made:      '🇪🇺 Сделано в Европе',
+
+      /* Auth pages (full) */
+      login_sub:    'Войдите в свой аккаунт',
+      label_email:  'Email',
+      label_password: 'Пароль',
+      label_work_email: 'Рабочий email',
+      label_first_name: 'Имя',
+      label_last_name:  'Фамилия',
+      label_company:    'Компания',
+      forgot_link:  'Забыли пароль?',
+      login_btn:    'Войти',
+      or_continue:  'или продолжить через',
+      no_account:   'Нет аккаунта?',
+      register_link:'Зарегистрироваться',
+      demo_hint:    'Демо: demo@ProspectorAI.io / demo1234',
+      register_sub: '14-дневный пробный период, без кредитной карты',
+      min_password_placeholder: 'Минимум 8 символов',
+      first_name_placeholder: 'Иван',
+      last_name_placeholder:  'Иванов',
+      email_placeholder:      'вы@компания.com',
+      company_placeholder:    'Acme Inc.',
+      have_account:  'Уже есть аккаунт?',
+      login_link:    'Войти',
+      register_terms:'Создавая аккаунт, вы соглашаетесь с нашими',
+      terms_link:    'Условиями',
+      privacy_link:  'Политикой конфиденциальности',
+      forgot_title:  'Сброс пароля',
+      forgot_sub:    'Введите ваш email — мы отправим ссылку для сброса.',
+      forgot_btn:    'Отправить ссылку',
+      back_to_login: '← Вернуться к входу',
+    }
+  };
+
+  /* ── 2. Core apply function ───────────────────────────────── */
+  function applyLanguage(lang) {
+    var dict = TRANSLATIONS[lang];
+    if (!dict) return;
+
+    /* 2a. Text content — [data-i18n] */
+    var textEls = document.querySelectorAll('[data-i18n]');
+    for (var i = 0; i < textEls.length; i++) {
+      var el  = textEls[i];
+      var key = el.getAttribute('data-i18n');
+      if (dict[key] !== undefined) {
+        /* Use innerHTML so keys like hero_h1 can contain <br><span> */
+        el.innerHTML = dict[key];
+      }
+    }
+
+    /* 2b. Placeholder attributes — [data-i18n-placeholder] */
+    var phEls = document.querySelectorAll('[data-i18n-placeholder]');
+    for (var j = 0; j < phEls.length; j++) {
+      var pEl  = phEls[j];
+      var pKey = pEl.getAttribute('data-i18n-placeholder');
+      if (dict[pKey] !== undefined) {
+        pEl.setAttribute('placeholder', dict[pKey]);
+      }
+    }
+
+    /* 2c. Update the visible language label in the switcher button */
+    var langLabel = document.getElementById('lang-label');
+    if (langLabel) {
+      langLabel.textContent = lang.toUpperCase();
+    }
+
+    /* 2d. Update the <html lang="..."> attribute for accessibility */
+    document.documentElement.setAttribute('lang', lang);
+
+    /* 2e. Persist choice */
+    try { localStorage.setItem('prospector_lang', lang); } catch (e) {}
+  }
+
+  /* ── 3. Hook into the existing setLang() ─────────────────── *
+   *  The existing markup calls setLang('en') / setLang('ru').   *
+   *  We wrap or replace it safely AFTER app.js may have         *
+   *  defined its own version, so we store a reference first.    */
+  var _originalSetLang = (typeof setLang === 'function') ? setLang : null;
+
+  window.setLang = function (lang) {
+    /* Call any pre-existing logic first (e.g. from app.js) */
+    if (_originalSetLang) {
+      try { _originalSetLang(lang); } catch (e) {}
+    }
+    /* Then apply our translations */
+    applyLanguage(lang);
+  };
+
+  /* ── 4. Auto-apply on page load ──────────────────────────── */
+  var savedLang = 'en';
+  try {
+    var stored = localStorage.getItem('prospector_lang');
+    if (stored && TRANSLATIONS[stored]) savedLang = stored;
+  } catch (e) {}
+
+  /* Wait for DOM to be fully parsed before applying */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      applyLanguage(savedLang);
+    });
+  } else {
+    applyLanguage(savedLang);
+  }
+
+})();
+</script>
+
 </body>
 </html>
