@@ -27,7 +27,7 @@
   --purple: #8B5CF6;
   --white: #FFFFFF;
   --sidebar-width: 240px;
-  --topbar-height: 60px;
+  --topbar-height: 40px;
   --radius: 10px;
   --radius-sm: 6px;
   --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
@@ -100,27 +100,29 @@ input, textarea, select { font-family: var(--font); }
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border-radius: var(--radius-sm);
+  justify-content: center;
+  
+  height: 38px;                     /* Фиксированная одинаковая высота для обеих кнопок */
+  padding: 0 16px;                  /* Внутренние отступы слева и справа */
+  
+  background-color: var(--blue);    /* Используем вашу переменную синего цвета */
+  color: var(--white);              /* Белый цвет текста */
+  
+  font-family: var(--font);
   font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  border: none;
-  transition: all 0.15s ease;
+  font-weight: 600;
+  
+  border-radius: var(--radius-sm);  /* Ваше скругление углов (6px) */
+  box-shadow: var(--shadow);        /* Ваша легкая тень */
+  
+  white-space: nowrap;              /* КЛЮЧЕВОЕ: не дает фразе "Create account" переноситесь */
+  transition: background-color 0.2s ease;
 }
-.btn-primary { background: var(--blue); color: white; }
-.btn-primary:hover { background: var(--blue-dark); }
-.btn-secondary { background: var(--white); color: var(--gray-700); border: 1px solid var(--gray-200); }
-.btn-secondary:hover { background: var(--gray-50); }
-.btn-ghost { background: transparent; color: var(--gray-600); }
-.btn-ghost:hover { background: var(--gray-100); }
-.btn-danger { background: var(--red); color: white; }
-.btn-danger:hover { background: #DC2626; }
-.btn-sm { padding: 5px 10px; font-size: 12px; }
-.btn-lg { padding: 12px 24px; font-size: 15px; }
-.btn-icon { padding: 7px; width: 32px; height: 32px; justify-content: center; }
 
+/* Эффект при наведении */
+.btn:hover {
+  background-color: var(--blue-dark); /* Темно-синий при наведении */
+}
 /* ── INPUTS ── */
 .input {
   width: 100%;
